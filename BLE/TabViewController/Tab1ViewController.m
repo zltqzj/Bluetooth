@@ -9,8 +9,11 @@
 #import "Tab1ViewController.h"
 #import "Tab1Cell.h"
 #import "MapViewController.h"
+#import "NetUtils.h"
+
 @interface Tab1ViewController () <UITableViewDataSource,UITableViewDelegate>
 @property(strong,nonatomic)   NSMutableArray* listData;
+@property(strong,nonatomic) NetUtils* netUtils;
 
 @end
 
@@ -31,14 +34,26 @@
     [_listTable registerClass:[Tab1Cell class] forCellReuseIdentifier:@"Tab1Cell"];
     _listTable.delegate = self;
     _listTable.dataSource = self;
-    NSDictionary* dict = @{@"url": @"",@"title":@"the first line",@"detail":@"none"};
-    _listData = [NSMutableArray new];
-    [_listData addObject:dict];
-    [_listData addObject:dict];
-    [_listData addObject:dict];
-    [_listData addObject:dict];
+    NSDictionary* dict1 = @{@"url": @"",@"title":@"the first line",@"detail":@"none"};
+    NSDictionary* dict2 = @{@"url": @"",@"title":@"the second line",@"detail":@"none"};
+    NSDictionary* dict3 = @{@"url": @"",@"title":@"the third line",@"detail":@"none"};
+    __unsafe_unretained Tab1ViewController *vc = self;
 
-    [_listData addObject:dict];
+    _listData = [NSMutableArray new];
+ 
+ 
+    _netUtils = [[NetUtils alloc] init];
+    [_netUtils GetContentWithUrl:GPS1_RESULT withSuccessBlock:^(id returnData) {
+         //NSLog(@"%@",returnData);
+        
+        vc.listData = [NSMutableArray arrayWithArray:returnData];
+        [vc.listTable reloadData];
+        
+    } withFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+    
 
     // Do any additional setup after loading the view.
 }
@@ -62,15 +77,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     Tab1Cell* tab1cell = [tableView dequeueReusableCellWithIdentifier:@"Tab1Cell" forIndexPath:indexPath];
-    NSDictionary* dict = _listData[indexPath.row];
-    tab1cell.titleLabel.text = dict[@"title"];
-    tab1cell.detailLabel.text = dict[@"detail"];
+    NSInteger row = indexPath.row;
+
+    NSArray* listPoint = _listData[row];
+    tab1cell.titleLabel.text = valueToString(row); //dict[@"title"];
+    tab1cell.detailLabel.text =listPoint[0][@"time"]; //dict[@"detail"];
     tab1cell.avatarImageView.image   = [UIImage imageNamed:@"pin"];
     return tab1cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger row = indexPath.row;
+    
     MapViewController* map = viewOnSb(@"MapViewController");
+    NSArray* listPoint = _listData[row];
+    map.listPoint = [NSMutableArray arrayWithArray:listPoint];
+    
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController pushViewController:map animated:YES];
 }

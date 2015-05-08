@@ -41,10 +41,14 @@
     
     
     [_kmdata enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj[@"DISTANCE"] intValue] >100) {
+            *stop = YES;
+        }
         CLLocationCoordinate2D kmenume = CLLocationCoordinate2DMake([obj[@"LATITUDE_A"] doubleValue] , [obj[@"LONGITUDE_A"] doubleValue]);
         KilometerAnno* mmp = [[KilometerAnno alloc] initWithCoordinate:kmenume content:[NSString stringWithFormat:@"%d",[obj[@"DISTANCE"] intValue]]];
         [_kmAnno addObject:mmp];
         [self addAnnotation:mmp];
+       
     }];
 }
 
@@ -125,9 +129,10 @@
         height = 10000;
         width = 10000;
     }
+    NSLog(@"%f,%f,%f,%f",c.latitude,c.longitude,width,height);
     
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(c, height, width);
-    MKCoordinateRegion adjustedRegion = [self regionThatFits:viewRegion];
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(c, width, height);
+   MKCoordinateRegion adjustedRegion = [self regionThatFits:viewRegion];
     
     if (isnan(adjustedRegion.center.latitude)|| isnan(adjustedRegion.center.longitude) ) {
         // iOS 6 will result in nan.
@@ -136,7 +141,12 @@
         adjustedRegion.span.latitudeDelta = 0;
         adjustedRegion.span.longitudeDelta = 0;
     }
-    [self setRegion:adjustedRegion animated:YES];
+    
+    if(adjustedRegion.center.longitude == -180.00000000){
+        
+    }
+    else
+     [self setRegion:adjustedRegion animated:YES];
     
     
     [self removeAnnotations:_annoArray];

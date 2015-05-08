@@ -160,4 +160,12 @@
 ////do your work here
 //TOCK
 
+
+#pragma mark - URL CONFIG
+#define GPS1_RESULT  @"http://123.57.248.43:9003/server.php?action=getList1"
+
+#define GPS2_RESULT  @"http://123.57.248.43:9003/server.php?action=getList2"
+
+#define GPS3_RESULT  @"http://123.57.248.43:9003/server.php?action=getList3"
+
 #endif

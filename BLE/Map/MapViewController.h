@@ -11,5 +11,6 @@
 @interface MapViewController : UIViewController<MKMapViewDelegate>
 
 @property(weak,nonatomic) IBOutlet MyMapView* mapView;
+@property(strong,nonatomic)  NSMutableArray* listPoint;
 
 @end

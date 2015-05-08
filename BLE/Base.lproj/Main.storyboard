@@ -88,13 +88,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="niM-ad-vRl" customClass="MyMapView">
-                                <rect key="frame" x="0.0" y="214" width="320" height="354"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="niM-ad-vRl" secondAttribute="trailing" constant="-16" id="Aym-qJ-nRQ"/>
-                            <constraint firstItem="niM-ad-vRl" firstAttribute="top" secondItem="2ga-rN-Zcq" secondAttribute="bottom" constant="194" id="Iqq-Q4-MQk"/>
+                            <constraint firstItem="niM-ad-vRl" firstAttribute="top" secondItem="2ga-rN-Zcq" secondAttribute="bottom" constant="-20" id="Iqq-Q4-MQk"/>
                             <constraint firstItem="gc2-0i-pJ4" firstAttribute="top" secondItem="niM-ad-vRl" secondAttribute="bottom" id="X7y-0u-pOp"/>
                             <constraint firstItem="niM-ad-vRl" firstAttribute="leading" secondItem="fYt-fu-uYq" secondAttribute="leadingMargin" constant="-16" id="gYD-6A-Xga"/>
                         </constraints>
@@ -137,24 +137,52 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9FY-pV-5gx">
-                                <rect key="frame" x="21" y="88" width="274" height="30"/>
+                                <rect key="frame" x="14" y="88" width="140" height="30"/>
                                 <color key="backgroundColor" red="0.46407802137188003" green="0.5617674237465331" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="WI3-YU-qFI"/>
+                                    <constraint firstAttribute="height" constant="30" id="UOX-8T-cva"/>
                                 </constraints>
                                 <state key="normal" title="连接外设">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="connect2device:" destination="wen-bs-EVF" eventType="touchUpInside" id="Hyo-aq-coq"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2EH-83-pn6">
+                                <rect key="frame" x="21" y="144" width="274" height="183"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJY-Nz-V5a">
+                                <rect key="frame" x="169" y="88" width="140" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.48295645575724111" blue="0.60695972007446808" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="q9R-Lt-8zo"/>
+                                </constraints>
+                                <state key="normal" title="取消连接">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelConnect2Device:" destination="wen-bs-EVF" eventType="touchUpInside" id="VgV-Lx-2ri"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9FY-pV-5gx" firstAttribute="top" secondItem="j0l-Qi-lqj" secondAttribute="bottom" constant="24" id="OaS-ch-4GV"/>
-                            <constraint firstItem="9FY-pV-5gx" firstAttribute="leading" secondItem="TQS-94-iYc" secondAttribute="leadingMargin" constant="5" id="YpK-3C-yjb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9FY-pV-5gx" secondAttribute="trailing" constant="9" id="hrf-JI-Nyk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nJY-Nz-V5a" secondAttribute="trailing" constant="-5" id="HYi-2A-S5g"/>
+                            <constraint firstItem="nJY-Nz-V5a" firstAttribute="top" secondItem="j0l-Qi-lqj" secondAttribute="bottom" constant="24" id="PJn-VX-h79"/>
+                            <constraint firstItem="9FY-pV-5gx" firstAttribute="leading" secondItem="TQS-94-iYc" secondAttribute="leadingMargin" constant="-2" id="W6H-Mu-tAZ"/>
+                            <constraint firstItem="nJY-Nz-V5a" firstAttribute="width" secondItem="9FY-pV-5gx" secondAttribute="width" id="bdh-lN-gaU"/>
+                            <constraint firstItem="nJY-Nz-V5a" firstAttribute="leading" secondItem="9FY-pV-5gx" secondAttribute="trailing" constant="15" id="chk-N0-Wov"/>
+                            <constraint firstItem="9FY-pV-5gx" firstAttribute="top" secondItem="j0l-Qi-lqj" secondAttribute="bottom" constant="24" id="jZM-r5-SeV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XuU-PA-7dU"/>
+                    <connections>
+                        <outlet property="log" destination="2EH-83-pn6" id="XXP-Ne-x8j"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgG-sw-LCB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

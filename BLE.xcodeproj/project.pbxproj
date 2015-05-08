@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BD544420DA26061FA92B1AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BC9028DE1DDB517D1770B8 /* libPods.a */; };
 		1C267B0F1AF8B8A800D940FC /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C267B0E1AF8B8A800D940FC /* FileManager.m */; };
 		1C535E2C1AF85B94003FD0A0 /* CSPausibleTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C535E291AF85B94003FD0A0 /* CSPausibleTimer.m */; };
 		1C535E2D1AF85B94003FD0A0 /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C535E2B1AF85B94003FD0A0 /* NSTimer+Extension.m */; };
@@ -58,6 +59,7 @@
 		1CBA6F381AF775760051BACB /* CSqlite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBA6F331AF775760051BACB /* CSqlite.m */; };
 		1CBA6F391AF775760051BACB /* gps.db in Resources */ = {isa = PBXBuildFile; fileRef = 1CBA6F341AF775760051BACB /* gps.db */; };
 		1CBA6F3A1AF775760051BACB /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 1CBA6F351AF775760051BACB /* sqlite3.c */; };
+		1CC0F6941AFC583000D25722 /* NetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0F6931AFC583000D25722 /* NetUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +151,11 @@
 		1CBA6F351AF775760051BACB /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
 		1CBA6F361AF775760051BACB /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		1CBA6F371AF775760051BACB /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
+		1CC0F6921AFC583000D25722 /* NetUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetUtils.h; path = NetUitls/NetUtils.h; sourceTree = "<group>"; };
+		1CC0F6931AFC583000D25722 /* NetUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetUtils.m; path = NetUitls/NetUtils.m; sourceTree = "<group>"; };
+		23743517C035308B3D9FC028 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B54703B77E0D2EA4E18B5805 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F4BC9028DE1DDB517D1770B8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +163,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BD544420DA26061FA92B1AE /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +270,8 @@
 				1CBA6EDB1AF761210051BACB /* BLE */,
 				1CBA6EF51AF761210051BACB /* BLETests */,
 				1CBA6EDA1AF761210051BACB /* Products */,
+				97F43C4E4161D8F4EFFB59AB /* Pods */,
+				3C062E097B1D35644B6070C8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -324,6 +334,7 @@
 		1CBA6F021AF7616D0051BACB /* ThirdKit */ = {
 			isa = PBXGroup;
 			children = (
+				1CC0F6911AFC581600D25722 /* NetUtils */,
 				1C267B0C1AF8B8A800D940FC /* NSFileManager */,
 				1C535E271AF85B94003FD0A0 /* NSTimer */,
 				1CBA6F311AF775760051BACB /* Sqlite */,
@@ -398,6 +409,32 @@
 			path = Sqlite;
 			sourceTree = "<group>";
 		};
+		1CC0F6911AFC581600D25722 /* NetUtils */ = {
+			isa = PBXGroup;
+			children = (
+				1CC0F6921AFC583000D25722 /* NetUtils.h */,
+				1CC0F6931AFC583000D25722 /* NetUtils.m */,
+			);
+			name = NetUtils;
+			sourceTree = "<group>";
+		};
+		3C062E097B1D35644B6070C8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4BC9028DE1DDB517D1770B8 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		97F43C4E4161D8F4EFFB59AB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B54703B77E0D2EA4E18B5805 /* Pods.debug.xcconfig */,
+				23743517C035308B3D9FC028 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -405,9 +442,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1CBA6EFC1AF761210051BACB /* Build configuration list for PBXNativeTarget "BLE" */;
 			buildPhases = (
+				B7E2A04E9FEFD4DBEDDA1484 /* Check Pods Manifest.lock */,
 				1CBA6ED51AF761210051BACB /* Sources */,
 				1CBA6ED61AF761210051BACB /* Frameworks */,
 				1CBA6ED71AF761210051BACB /* Resources */,
+				9B01743C6873B54D3A74BEFF /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -520,12 +559,46 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9B01743C6873B54D3A74BEFF /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B7E2A04E9FEFD4DBEDDA1484 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1CBA6ED51AF761210051BACB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1CBA6F301AF7750F0051BACB /* KANullInputSource.m in Sources */,
+				1CC0F6941AFC583000D25722 /* NetUtils.m in Sources */,
 				1C53E5B41AF9B43300116E4C /* KilometerAnno.m in Sources */,
 				1C535E391AF86024003FD0A0 /* Tab1Cell.m in Sources */,
 				1C53E5B51AF9B43300116E4C /* KilometerAnotationView.m in Sources */,
@@ -603,7 +676,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng yuan (HLE9E7RHAC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng yuan (HLE9E7RHAC)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -645,7 +719,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng yuan (HLE9E7RHAC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng yuan (HLE9E7RHAC)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -666,10 +741,12 @@
 		};
 		1CBA6EFD1AF761210051BACB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B54703B77E0D2EA4E18B5805 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "BLE/BLE-Prefix.pch";
 				INFOPLIST_FILE = BLE/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -678,10 +755,12 @@
 		};
 		1CBA6EFE1AF761210051BACB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23743517C035308B3D9FC028 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "BLE/BLE-Prefix.pch";
 				INFOPLIST_FILE = BLE/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

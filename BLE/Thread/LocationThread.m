@@ -60,7 +60,7 @@
             [_locationManager performSelector:@selector(requestAlwaysAuthorization)];
         }
     }
-    [_locationManager startUpdatingLocation];
+   // [_locationManager startUpdatingLocation];
 
     
 }

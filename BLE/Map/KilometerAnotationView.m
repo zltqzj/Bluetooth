@@ -20,7 +20,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.canShowCallout = NO;
         self.centerOffset = CGPointMake(0, -6);
-        self.frame = CGRectMake(0, 0, 12, 16);
+        self.frame = CGRectMake(0, 0, 22, 20);
 
         _kmLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - Arror_height)];
         _kmLabel.backgroundColor = [UIColor clearColor];

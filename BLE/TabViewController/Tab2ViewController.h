@@ -10,4 +10,9 @@
 
 @interface Tab2ViewController : UIViewController
 
+@property(weak,nonatomic) IBOutlet UILabel* log;
+
+-(IBAction)connect2device:(id)sender;
+-(IBAction)cancelConnect2Device:(id)sender;
+
 @end
