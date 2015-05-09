@@ -9,14 +9,8 @@
 #import "Tab2ViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 
-//#define kServiceUUID @"C4FB2349-72FE-4CA2-94D6-1F3CB16331EE" //服务的UUID
-//#define kCharacteristicUUID @"6A3E4B28-522D-4B3B-82A9-D5E2004534FC" //特征的UUID
-
-//#define kServiceUUID           @"E20A39F4-73F5-4BC4-A12F-17D1AD07A961"
-//#define kCharacteristicUUID    @"08590F7E-DB05-467E-8757-72F6FAEB13D4"
-
-#define kServiceUUID           @"FB139302-1060-D011-EF4C-9DA51D95C4C2"
-#define kCharacteristicUUID    @"08590F7E-DB05-467E-8757-72F6FAEB13D4"
+#define kServiceUUID           @"FFF0"
+#define kCharacteristicUUID    @"FFF1"
 
 @interface Tab2ViewController ()  <CBCentralManagerDelegate,CBPeripheralDelegate>
 @property (strong,nonatomic) CBCentralManager *centralManager;//中心设备管理器
@@ -79,7 +73,7 @@
  *  @param RSSI              信号质量（信号强度）
  */
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
-   
+    NSLog(@"信号强度: %@", [RSSI stringValue]);
     [self writeToLog:@"发现外围设备..."];
     //停止扫描
     [self.centralManager stopScan];
@@ -150,13 +144,13 @@
                  *1.调用此方法会触发代理方法：-(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
                  *2.调用此方法会触发外围设备的订阅代理方法
                  */
-                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+                //[peripheral setNotifyValue:YES forCharacteristic:characteristic];
                 //情景二：读取
-                //                [peripheral readValueForCharacteristic:characteristic];
-                //                    if(characteristic.value){
-                //                    NSString *value=[[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-                //                    NSLog(@"读取到特征值：%@",value);
-                //                }
+                [peripheral readValueForCharacteristic:characteristic];
+                    if(characteristic.value){
+                        NSString *value=[[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+                        NSLog(@"读取到特征值：%@",value);
+                }
             }
         }
     }
