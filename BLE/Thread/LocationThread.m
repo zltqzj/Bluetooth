@@ -72,17 +72,6 @@
     [_locationManager stopUpdatingLocation];
 }
 
-#pragma  mark - 蓝牙
-// 蓝牙连接的方法
--(void)initBlueTooth{
-    [_pbl startfind];
-
-}
-
--(void)closeBlueToothConnect//关闭蓝牙连接
-{
-    [_pbl stopfind];
-}
 
 
 #pragma  mark - 定位的代理方法 CLLocationManagerDelegate

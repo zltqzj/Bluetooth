@@ -277,12 +277,10 @@
                     pointArray2Draw = malloc(sizeof(MKMapPoint) * nIndex);
                     memcpy(pointArray2Draw, pointArray, sizeof(MKMapPoint) * nIndex);
                 }
-                float dis = ([[[_pointsToDraw objectAtIndex:idx] objectForKey:@"DISTANCE"] floatValue] - [[[_pointsToDraw objectAtIndex:idx - nIndex + 1] objectForKey:@"DISTANCE"] floatValue]);
-                float interval = [[[_pointsToDraw objectAtIndex:idx] objectForKey:@"INTERVAL"] floatValue] - [[[_pointsToDraw objectAtIndex:idx - nIndex + 1] objectForKey:@"INTERVAL"] floatValue];
-                float v = dis*1000/interval;
+                
                 self.routeLine = [MKPolyline polylineWithPoints:pointArray2Draw count:nIndex];
                 if (nil != self.routeLine) {
-                    NSDictionary * d_lay = @{@"overlay":self.routeLine,@"speed":[NSString stringWithFormat:@"%f",v]};
+                    NSDictionary * d_lay = @{@"overlay":self.routeLine};
                     [_routeLineArray addObject:d_lay];
                     if (_mFlag == 1)
                         [self addOverlay:self.routeLine level:MKOverlayLevelAboveRoads];
@@ -311,13 +309,15 @@
         // 加起点终点坐标
         
         CLLocationCoordinate2D startLo = CLLocationCoordinate2DMake([[[_pointsToDraw objectAtIndex:0] objectForKey:@"LATITUDE_A"] doubleValue], [[[_pointsToDraw objectAtIndex:0] objectForKey:@"LONGITUDE_A"] doubleValue]);
-        MapPoint* mmp1 = [[MapPoint alloc] initWithCoordinate:startLo title:@"起点" subTitle:@""];
+        MapPoint* mmp1 = [[MapPoint alloc] initWithCoordinate2D:startLo  ];
+        mmp1.title = @"起点";
         [self addAnnotation:mmp1];
         [_annoArray addObject:mmp1];
         
         if (_mFlag !=0) {
             CLLocationCoordinate2D lo1 = CLLocationCoordinate2DMake(latitude,longitude);
-            MapPoint* mmp = [[MapPoint alloc] initWithCoordinate:lo1 title:@"终点" subTitle:@""];
+            MapPoint* mmp = [[MapPoint alloc] initWithCoordinate2D:lo1  ];
+            mmp.title = @"终点";
             [ self addAnnotation:mmp];
             [_annoArray addObject:mmp];
         }
@@ -375,5 +375,10 @@
     [_customAnno removeAllObjects];
     
     _haveDrawCount = 0;
+}
+
+
+-(void)dealloc{
+    NSLog(@"地图销毁");
 }
 @end

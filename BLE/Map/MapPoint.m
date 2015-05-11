@@ -11,20 +11,17 @@
 
 @implementation MapPoint
 
-@synthesize title,subTitle;
-@synthesize coordinate;
+@synthesize title,subtitle;
+@synthesize coordinate = _coordinate;
 
--(id)initWithCoordinate:(CLLocationCoordinate2D)c title:(NSString *)t subTitle:(NSString *)st
-{
+- (id)initWithCoordinate2D:(CLLocationCoordinate2D)coordinate {
     self = [super init];
-    if(self){
-        
-        [self setTitle:t];
-        [self setSubTitle:st];
-        coordinate = c;
+    if (self != nil) {
+        _coordinate = coordinate;
     }
-    return self;    
+    return self;
 }
+
 
 @end
 

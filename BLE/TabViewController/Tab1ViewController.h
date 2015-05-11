@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyMapView.h"
+#import "BaseViewController.h"
 
-@interface Tab1ViewController : UIViewController
+@interface Tab1ViewController : BaseViewController<MKMapViewDelegate>
 
-@property(weak,nonatomic) IBOutlet UITableView* listTable;
+@property(weak,nonatomic) IBOutlet UITableView* listTable;// 暂时不用了
+@property(weak,nonatomic) IBOutlet MyMapView* mapView;
 
 @end

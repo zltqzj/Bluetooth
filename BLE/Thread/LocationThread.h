@@ -10,7 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <CoreMotion/CoreMotion.h>
 #import <CoreLocation/CoreLocation.h>
-#import "HRMViewController.h"
+
 #import "CSqlite.h"
 #import "CSPausibleTimer.h"
 @interface LocationThread : NSThread <CLLocationManagerDelegate>{
@@ -18,7 +18,7 @@
 
 }
 
-@property(strong,nonatomic) HRMViewController * pbl;
+
 
 @property (nonatomic, retain) CLLocationManager* locationManager; // 定位对象
 

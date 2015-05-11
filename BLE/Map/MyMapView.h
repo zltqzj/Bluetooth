@@ -29,7 +29,7 @@
 @property(strong,nonatomic) NSMutableArray* kmdata;// 自定义的标注的数组
 @property(strong,nonatomic) NSMutableArray* kmAnno;// 自定义的公里标注的数组
 @property(assign,nonatomic) int lastSection;//记录上一个点的
-@property(assign,nonatomic) int haveDrawCount;// 循环里，记录已经画过的点的个数
+@property(assign,nonatomic) NSInteger haveDrawCount;// 循环里，记录已经画过的点的个数
 @property(assign,nonatomic) CLLocationCoordinate2D centerGps;// 中心点
 @property(assign,nonatomic) double r_latitude;
 @property(assign,nonatomic) double r_logitude;

@@ -27,8 +27,13 @@
 }
 
 -(IBAction)cancelConnect2Device:(id)sender{
-    [_centralManager cancelPeripheralConnection:_peripheral];
+    if (_peripheral !=nil) {
+        [_centralManager cancelPeripheralConnection:_peripheral];
+    }
     _log.text = @"取消连接";
+    [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal_gray"]];
+    [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal_gray"]];
+    [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
 }
 
 
@@ -57,12 +62,42 @@
             break;
             
         default:
-            NSLog(@"此设备不支持BLE或未打开蓝牙功能，无法作为外围设备.");
+            NSLog(@"此设备不支持BLE或未打开蓝牙功能.");
             [self writeToLog:@"此设备不支持BLE或未打开蓝牙功能，无法作为外围设备."];
+            [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal_gray"]];
+            [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal_gray"]];
+            [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
+
             break;
     }
 }
 
+
+-(void)signalStrengthenSetting:(int)rssi{
+    if (rssi < 0 && rssi >-50) {
+        [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal"]];
+        [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal"]];
+        [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal"]];
+    }
+    else if (rssi < -50 && rssi > -80){
+        [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal"]];
+        [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal"]];
+        [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
+
+    }
+    else if (rssi < -80)
+    {
+        [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal_gray"]];
+        [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal_gray"]];
+        [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
+ 
+    }
+    else{
+        [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal_gray"]];
+        [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal_gray"]];
+        [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
+    }
+}
 
 /**
  *  发现外围设备
@@ -73,6 +108,14 @@
  *  @param RSSI              信号质量（信号强度）
  */
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
+    
+    // rssi强度 0~-50 Immediate
+    // -50~-80 near
+    // <-80   far
+    int rssi = [RSSI intValue];
+    [self signalStrengthenSetting:rssi];
+    
+    
     NSLog(@"信号强度: %@", [RSSI stringValue]);
     [self writeToLog:@"发现外围设备..."];
     //停止扫描
@@ -96,7 +139,7 @@
     //设置外围设备的代理为当前视图控制器
     peripheral.delegate=self;
     //外围设备开始寻找服务
-    [peripheral discoverServices:@[[CBUUID UUIDWithString:kServiceUUID]]];
+    [peripheral discoverServices:nil];
     _peripheral = peripheral;
 }
 //连接外围设备失败
@@ -118,11 +161,12 @@
     CBUUID *characteristicUUID=[CBUUID UUIDWithString:kCharacteristicUUID];
     for (CBService *service in peripheral.services) {
         NSLog(@"%@",service.UUID);
-        
-        if([service.UUID isEqual:serviceUUID]){
-            //外围设备查找指定服务中的特征
-            [peripheral discoverCharacteristics:@[characteristicUUID] forService:service];
-        }
+        [peripheral discoverCharacteristics:nil forService:service];
+
+//        if([service.UUID isEqual:serviceUUID]){
+//            //外围设备查找指定服务中的特征
+//            [peripheral discoverCharacteristics:nil forService:service];
+//        }
     }
 }
 //外围设备寻找到特征后
@@ -136,9 +180,9 @@
     //遍历服务中的特征
     CBUUID *serviceUUID=[CBUUID UUIDWithString:kServiceUUID];
     CBUUID *characteristicUUID=[CBUUID UUIDWithString:kCharacteristicUUID];
-    if ([service.UUID isEqual:serviceUUID]) {
+   // if ([service.UUID isEqual:serviceUUID]) {
         for (CBCharacteristic *characteristic in service.characteristics) {
-            if ([characteristic.UUID isEqual:characteristicUUID]) {
+           // if ([characteristic.UUID isEqual:characteristicUUID]) {
                 //情景一：通知
                 /*找到特征后设置外围设备为已通知状态（订阅特征）：
                  *1.调用此方法会触发代理方法：-(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -151,9 +195,9 @@
                         NSString *value=[[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
                         NSLog(@"读取到特征值：%@",value);
                 }
-            }
+           // }
         }
-    }
+   // }
 }
 //特征值被更新后
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{

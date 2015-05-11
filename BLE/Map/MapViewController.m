@@ -116,12 +116,12 @@
             CLLocation* lefttop = [[CLLocation alloc] initWithLatitude:_maxlat longitude:_minlon];
             CLLocationDistance distance_h = [lefttop distanceFromLocation:leftbottom];
             
-            NSDictionary* dict = @{@"LATITUDE_A": obj[@"gps_lat"],@"LONGITUDE_A":obj[@"gps_lng"],@"SECTION":@"1",@"centerGPS":[NSString stringWithFormat:@"%f,%f,%f,%f",(_maxlon+_minlon)/2,(_maxlat+_minlat)/2,distance_w,distance_h],@"DISTANCE":[NSString stringWithFormat:@"%f",totalDistance]};
+            NSDictionary* dict = @{@"LATITUDE_A": obj[@"gps_lat"],@"LONGITUDE_A":obj[@"gps_lng"],@"SECTION":@"1",@"centerGPS":[NSString stringWithFormat:@"%f,%f,%f,%f",(_maxlon+_minlon)/2,(_maxlat+_minlat)/2,distance_w,distance_h],@"DISTANCE":[NSString stringWithFormat:@"%f",totalDistance/1000]};
             [vc.listPoint addObject:dict];
             
             _mapView.centerGps = CLLocationCoordinate2DMake((_maxlat+_minlat)/2,(_maxlon+_minlon)/2);
-            _mapView.r_logitude = distance_w /1000;
-            _mapView.r_latitude = distance_h /1000;
+            _mapView.r_logitude = distance_w/1000 ;///1000;
+            _mapView.r_latitude = distance_h/1000 ;///1000;
             
         }];
         [vc.mapView updateMap:vc.listPoint];
