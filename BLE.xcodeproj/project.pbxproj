@@ -43,6 +43,10 @@
 		1C80EF791B0074A300D53552 /* iconfont-man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C80EF771B0074A300D53552 /* iconfont-man@2x.png */; };
 		1C80EF7A1B0074A300D53552 /* iconfont-man@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C80EF781B0074A300D53552 /* iconfont-man@3x.png */; };
 		1C80EF7D1B007D0D00D53552 /* FriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C80EF7C1B007D0D00D53552 /* FriendListViewController.m */; };
+		1CB1EF3D1B01EBA7002DA496 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF3C1B01EBA7002DA496 /* LoginViewController.m */; };
+		1CB1EF401B01EBEC002DA496 /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF3F1B01EBEC002DA496 /* RegistViewController.m */; };
+		1CB1EF431B01EEBE002DA496 /* login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB1EF411B01EEBE002DA496 /* login@2x.png */; };
+		1CB1EF441B01EEBE002DA496 /* login@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB1EF421B01EEBE002DA496 /* login@3x.png */; };
 		1CB7A9361B008ADB00995A4F /* signal_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB7A92E1B008ADB00995A4F /* signal_gray.png */; };
 		1CB7A9371B008ADB00995A4F /* signal_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB7A92F1B008ADB00995A4F /* signal_gray@2x.png */; };
 		1CB7A9381B008ADB00995A4F /* signal.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB7A9301B008ADB00995A4F /* signal.png */; };
@@ -134,6 +138,12 @@
 		1C80EF781B0074A300D53552 /* iconfont-man@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-man@3x.png"; sourceTree = "<group>"; };
 		1C80EF7B1B007D0D00D53552 /* FriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListViewController.h; sourceTree = "<group>"; };
 		1C80EF7C1B007D0D00D53552 /* FriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListViewController.m; sourceTree = "<group>"; };
+		1CB1EF3B1B01EBA7002DA496 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		1CB1EF3C1B01EBA7002DA496 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		1CB1EF3E1B01EBEC002DA496 /* RegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistViewController.h; sourceTree = "<group>"; };
+		1CB1EF3F1B01EBEC002DA496 /* RegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistViewController.m; sourceTree = "<group>"; };
+		1CB1EF411B01EEBE002DA496 /* login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login@2x.png"; sourceTree = "<group>"; };
+		1CB1EF421B01EEBE002DA496 /* login@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login@3x.png"; sourceTree = "<group>"; };
 		1CB7A92E1B008ADB00995A4F /* signal_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal_gray.png; sourceTree = "<group>"; };
 		1CB7A92F1B008ADB00995A4F /* signal_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signal_gray@2x.png"; sourceTree = "<group>"; };
 		1CB7A9301B008ADB00995A4F /* signal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal.png; sourceTree = "<group>"; };
@@ -268,6 +278,8 @@
 		1C535EBF1AF8A2D2003FD0A0 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				1CB1EF411B01EEBE002DA496 /* login@2x.png */,
+				1CB1EF421B01EEBE002DA496 /* login@3x.png */,
 				1CB7A9421B008CDD00995A4F /* lanya_off@2x.png */,
 				1CB7A9431B008CDD00995A4F /* lanya_off@3x.png */,
 				1CB7A9441B008CDD00995A4F /* lanya_on@2x.png */,
@@ -295,6 +307,18 @@
 			path = BLE/image;
 			sourceTree = "<group>";
 		};
+		1CB1EF3A1B01EB9E002DA496 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				1CB1EF3B1B01EBA7002DA496 /* LoginViewController.h */,
+				1CB1EF3C1B01EBA7002DA496 /* LoginViewController.m */,
+				1CB1EF3E1B01EBEC002DA496 /* RegistViewController.h */,
+				1CB1EF3F1B01EBEC002DA496 /* RegistViewController.m */,
+			);
+			name = Base;
+			path = BLE/Base;
+			sourceTree = "<group>";
+		};
 		1CB7A94C1B00AAEB00995A4F /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +332,7 @@
 		1CBA6ED01AF761200051BACB = {
 			isa = PBXGroup;
 			children = (
+				1CB1EF3A1B01EB9E002DA496 /* Base */,
 				1CB7A94C1B00AAEB00995A4F /* model */,
 				1C4341621AFDE34D00C1AC3B /* icon */,
 				1C535EBF1AF8A2D2003FD0A0 /* image */,
@@ -566,6 +591,7 @@
 				1C4341631AFDE34D00C1AC3B /* icon in Resources */,
 				1CB7A9461B008CDD00995A4F /* lanya_off@2x.png in Resources */,
 				1C53E5C11AF9BE8500116E4C /* pin@3x.png in Resources */,
+				1CB1EF441B01EEBE002DA496 /* login@3x.png in Resources */,
 				1C53E5B91AF9BACC00116E4C /* iconfont-ditu@3x.png in Resources */,
 				1CB7A9381B008ADB00995A4F /* signal.png in Resources */,
 				1C535EC31AF8A2D2003FD0A0 /* map_start@2x.png in Resources */,
@@ -575,6 +601,7 @@
 				1CB7A9471B008CDD00995A4F /* lanya_off@3x.png in Resources */,
 				1CB7A9481B008CDD00995A4F /* lanya_on@2x.png in Resources */,
 				1C53E5BE1AF9BE8500116E4C /* ly@2x.png in Resources */,
+				1CB1EF431B01EEBE002DA496 /* login@2x.png in Resources */,
 				1C53E5B81AF9BACC00116E4C /* iconfont-ditu@2x.png in Resources */,
 				1CBA6EEA1AF761210051BACB /* Images.xcassets in Resources */,
 				1CB7A9491B008CDD00995A4F /* lanya_on@3x.png in Resources */,
@@ -647,6 +674,7 @@
 				1C535E2C1AF85B94003FD0A0 /* CSPausibleTimer.m in Sources */,
 				1C535E341AF85DBB003FD0A0 /* Tab2ViewController.m in Sources */,
 				1CBA6EE51AF761210051BACB /* ViewController.m in Sources */,
+				1CB1EF3D1B01EBA7002DA496 /* LoginViewController.m in Sources */,
 				1C535E311AF85D9E003FD0A0 /* Tab1ViewController.m in Sources */,
 				1C535E4E1AF87519003FD0A0 /* MyMapView.m in Sources */,
 				1C535E2D1AF85B94003FD0A0 /* NSTimer+Extension.m in Sources */,
@@ -655,6 +683,7 @@
 				1C4341601AFDBE5900C1AC3B /* CBPeripheralManager+Blocks.m in Sources */,
 				1C43415D1AFDBE5900C1AC3B /* CBCharacteristic+Debug.m in Sources */,
 				1C535E4D1AF87519003FD0A0 /* MapViewController.m in Sources */,
+				1CB1EF401B01EBEC002DA496 /* RegistViewController.m in Sources */,
 				1CBA6F251AF764A80051BACB /* LocationThread.m in Sources */,
 				1CBA6EDF1AF761210051BACB /* main.m in Sources */,
 				1CBA6F291AF766EE0051BACB /* CLLocationManager+Block.m in Sources */,
@@ -720,8 +749,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dongguan Chanda Sports Media Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dongguan Chanda Sports Media Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng yuan (HLE9E7RHAC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng yuan (HLE9E7RHAC)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -741,6 +770,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "05679eb7-ddd6-4d6d-b58b-96da3140cf93";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -763,8 +793,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dongguan Chanda Sports Media Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dongguan Chanda Sports Media Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng yuan (HLE9E7RHAC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng yuan (HLE9E7RHAC)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -777,6 +807,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "05679eb7-ddd6-4d6d-b58b-96da3140cf93";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -788,12 +819,13 @@
 			baseConfigurationReference = B54703B77E0D2EA4E18B5805 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dongguan Chanda Sports Media Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng yuan (HLE9E7RHAC)";
 				GCC_PREFIX_HEADER = "BLE/BLE-Prefix.pch";
 				INFOPLIST_FILE = BLE/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "05679eb7-ddd6-4d6d-b58b-96da3140cf93";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -803,12 +835,13 @@
 			baseConfigurationReference = 23743517C035308B3D9FC028 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dongguan Chanda Sports Media Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng yuan (HLE9E7RHAC)";
 				GCC_PREFIX_HEADER = "BLE/BLE-Prefix.pch";
 				INFOPLIST_FILE = BLE/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "05679eb7-ddd6-4d6d-b58b-96da3140cf93";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

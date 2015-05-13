@@ -50,29 +50,20 @@
     // Do any additional setup after loading the view.
 }
 
-//中心服务器状态更新后
--(void)centralManagerDidUpdateState:(CBCentralManager *)central{
-    switch (central.state) {
-        case CBPeripheralManagerStatePoweredOn:
-            NSLog(@"BLE已打开.");
-            [self writeToLog:@"BLE已打开."];
-            //扫描外围设备
-            //            [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:kServiceUUID]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
-            [central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
-            break;
-            
-        default:
-            NSLog(@"此设备不支持BLE或未打开蓝牙功能.");
-            [self writeToLog:@"此设备不支持BLE或未打开蓝牙功能，无法作为外围设备."];
-            [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal_gray"]];
-            [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal_gray"]];
-            [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
 
-            break;
-    }
+
+
+#pragma  mark - RSSI
+
+// 蓝牙RSSI计算距离
+- (float)calcDistByRSSI:(int)rssi
+{
+    int iRssi = abs(rssi);
+    float power = (iRssi-59)/(10*2.0);
+    return pow(10, power);
 }
 
-
+// 信号强度判断
 -(void)signalStrengthenSetting:(int)rssi{
     if (rssi < 0 && rssi >-50) {
         [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal"]];
@@ -99,6 +90,32 @@
     }
 }
 
+
+
+#pragma  mark - CBCentralManagerDelegate
+
+//中心服务器状态更新后
+-(void)centralManagerDidUpdateState:(CBCentralManager *)central{
+    switch (central.state) {
+        case CBPeripheralManagerStatePoweredOn:
+            NSLog(@"BLE已打开.");
+            [self writeToLog:@"BLE已打开."];
+            //扫描外围设备
+            //            [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:kServiceUUID]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
+            [central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
+            break;
+            
+        default:
+            NSLog(@"此设备不支持BLE或未打开蓝牙功能.");
+            [self writeToLog:@"此设备不支持BLE或未打开蓝牙功能，无法作为外围设备."];
+            [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal_gray"]];
+            [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal_gray"]];
+            [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
+            
+            break;
+    }
+}
+
 /**
  *  发现外围设备
  *
@@ -114,8 +131,8 @@
     // <-80   far
     int rssi = [RSSI intValue];
     [self signalStrengthenSetting:rssi];
-    
-    
+   // NSLog(@"距离:%f",[self calcDistByRSSI:rssi]);
+                 
     NSLog(@"信号强度: %@", [RSSI stringValue]);
     [self writeToLog:@"发现外围设备..."];
     //停止扫描
@@ -147,6 +164,8 @@
     NSLog(@"连接外围设备失败!");
     [self writeToLog:@"连接外围设备失败!"];
 }
+
+
 #pragma mark - CBPeripheral 代理方法
 //外围设备寻找到服务后
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error{
@@ -188,7 +207,9 @@
                  *1.调用此方法会触发代理方法：-(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
                  *2.调用此方法会触发外围设备的订阅代理方法
                  */
-                //[peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            NSLog(@"%@",characteristic.description);
+
+                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
                 //情景二：读取
                 [peripheral readValueForCharacteristic:characteristic];
                     if(characteristic.value){
@@ -199,7 +220,10 @@
         }
    // }
 }
-//特征值被更新后
+
+
+//特征值被更新后      [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
     NSLog(@"收到特征更新通知...");
     [self writeToLog:@"收到特征更新通知..."];
@@ -235,6 +259,7 @@
         return;
     }
     if (characteristic.value) {
+        NSLog(@"读写权限%lu",(unsigned long)characteristic.properties);
         NSString *value=[[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
         NSLog(@"读取到特征值：%@",value);
         [self writeToLog:[NSString stringWithFormat:@"读取到特征值：%@",value]];
@@ -242,6 +267,24 @@
         NSLog(@"未发现特征值.");
         [self writeToLog:@"未发现特征值."];
     }
+    
+    
+    
+    // 订阅
+    NSMutableData* recieveData = [NSMutableData new];
+    [recieveData appendData:characteristic.value];
+    NSLog(@"%@",recieveData);
+//    if ([recieveData length] >= 5)//已收到长度
+//    {
+//       unsigned char  *buffer = (unsigned  char *)[recieveData bytes];
+//        int nLen = buffer[3]*256 + buffer[4];
+//        if ([recieveData length] == (nLen+3+2+2))
+//        {
+//            NSLog(@"%s,%d",buffer,nLen);
+//        }
+//    }
+
+    
 }
 #pragma mark - 属性
 -(NSMutableArray *)peripherals{

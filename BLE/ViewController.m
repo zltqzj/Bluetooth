@@ -10,7 +10,7 @@
 #import "Tab1ViewController.h"
 #import "Tab2ViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
-
+#import "LoginViewController.h"
 @interface ViewController ()
 <CBCentralManagerDelegate,CBPeripheralDelegate>
 @property (strong,nonatomic) CBCentralManager *centralManager;//中心设备管理器
@@ -42,7 +42,16 @@
 
   //  _locationThread = [LocationThread sharedManager];
     
-    // Do any additional setup after loading the view, typically from a nib.
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"登录" style:UIBarButtonItemStyleBordered target:self action:@selector(login)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+}
+
+-(void)login
+{
+    LoginViewController* login = viewOnSb(@"LoginViewController");
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    [self.navigationController pushViewController:login animated:YES];
 }
 
 //中心服务器状态更新后
