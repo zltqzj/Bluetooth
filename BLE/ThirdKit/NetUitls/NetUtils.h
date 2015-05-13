@@ -23,22 +23,22 @@ typedef void (^AFFailedBlcok)(NSError* error);
 
 // af download
 typedef void (^AFDownLoadCompletionBlock)(NSString* localURL);
- typedef void (^ADownLoadFailedBlcok)(NSError* error);
+typedef void (^ADownLoadFailedBlcok)(NSError* error);
 
 
 @interface NetUtils : NSObject
- 
 
- @property(nonatomic,weak) AFHTTPRequestOperationManager* manager;
 
- 
+@property(nonatomic,weak) AFHTTPRequestOperationManager* manager;
+
+
 
 // af
 -(void)requestContentWithUrl:(NSString*)urlString para:(NSDictionary*)dict  withSuccessBlock:(AFCompletionBlock) successBlock
             withFailureBlock:(AFFailedBlcok) failureBlock;
 //AF： get方法
 -(void)GetContentWithUrl:(NSString*)urlString   withSuccessBlock:(AFCompletionBlock) successBlock
-            withFailureBlock:(AFFailedBlcok) failureBlock;
+        withFailureBlock:(AFFailedBlcok) failureBlock;
 
 // af download方法
 -(void)downLoadByaf:(NSString*)url withSuccessBlock:(AFDownLoadCompletionBlock)successBlock withFailureBlock:(ADownLoadFailedBlcok)failureBlock;
@@ -59,5 +59,6 @@ typedef void (^AFDownLoadCompletionBlock)(NSString* localURL);
 -(void)whatNew ; // 更新的内容
 
 - (void)uploaddevicefile:(NSString *)filePath url:(NSString*)url1 dict:(NSDictionary*)dict;
++ (instancetype)manager ;
 
 @end

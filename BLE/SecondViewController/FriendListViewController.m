@@ -7,7 +7,7 @@
 //
 
 #import "FriendListViewController.h"
-
+#import "MJRefresh.h"
 @interface FriendListViewController ()
 @property(strong,nonatomic)   NSMutableArray* listData;
 
@@ -31,6 +31,18 @@
 
     
     _listTable.tableFooterView = [UIView new];
+    
+    __unsafe_unretained FriendListViewController* vc = self;
+    
+    
+    // 添加传统的下拉刷新
+    [_listTable addLegendHeaderWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        [vc.listTable.header endRefreshing];
+    }];
+    
+    // 马上进入刷新状态
+   // [_listTable.header beginRefreshing];
     // Do any additional setup after loading the view.
 }
 

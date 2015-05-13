@@ -36,6 +36,7 @@ PODS:
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
   - HexColors (2.2.1)
+  - MJRefresh (1.4.6)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -45,6 +46,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.4.1)
   - BlocksKit (= 2.2.5)
+  - MJRefresh
   - SDWebImage (~> 3.6)
   - TSMessages
 
@@ -52,6 +54,7 @@ SPEC CHECKSUMS:
   AFNetworking: 41d45d2c14219af0fa5addf3cfd433a002c13c9f
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
+  MJRefresh: 2eaa3fd8f67fbb86497840fb0167446f7eb61dc7
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
 

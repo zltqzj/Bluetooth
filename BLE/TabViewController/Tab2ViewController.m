@@ -59,6 +59,9 @@
 - (float)calcDistByRSSI:(int)rssi
 {
     int iRssi = abs(rssi);
+    if (iRssi>80) {
+        return 0;
+    }
     float power = (iRssi-59)/(10*2.0);
     return pow(10, power);
 }
@@ -131,7 +134,8 @@
     // <-80   far
     int rssi = [RSSI intValue];
     [self signalStrengthenSetting:rssi];
-   // NSLog(@"距离:%f",[self calcDistByRSSI:rssi]);
+   
+    _distanceLabel.text = [NSString stringWithFormat:@"%.2f米",[self calcDistByRSSI:rssi]];
                  
     NSLog(@"信号强度: %@", [RSSI stringValue]);
     [self writeToLog:@"发现外围设备..."];

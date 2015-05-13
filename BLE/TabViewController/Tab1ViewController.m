@@ -59,6 +59,14 @@ static NSInteger const listYValue   = 55;
  
     _annoArray = [[NSMutableArray alloc] initWithCapacity:0];
 
+    _netUtils = [NetUtils manager];
+//    [_netUtils getLocatonList1WithUrl:GPS1_RESULT success:^(id returnData) {
+//        NSLog(@"%@",returnData);
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
+    
+    
     _netUtils = [[NetUtils alloc] init];
     [_netUtils GetContentWithUrl:GPS1_RESULT withSuccessBlock:^(id returnData) {
          //NSLog(@"%@",returnData);
@@ -86,6 +94,8 @@ static NSInteger const listYValue   = 55;
     } withFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
+    
+    
     
     //
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(39.915352,116.397105);
@@ -116,6 +126,7 @@ static NSInteger const listYValue   = 55;
         NSLog(@"%@",dict);
         [vc friendsLocation];//
     };
+   
 }
 
 -(void)friendsLocation{

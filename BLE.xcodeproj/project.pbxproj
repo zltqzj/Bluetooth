@@ -40,6 +40,7 @@
 		1C53E5BF1AF9BE8500116E4C /* ly@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C53E5BB1AF9BE8500116E4C /* ly@3x.png */; };
 		1C53E5C01AF9BE8500116E4C /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C53E5BC1AF9BE8500116E4C /* pin@2x.png */; };
 		1C53E5C11AF9BE8500116E4C /* pin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C53E5BD1AF9BE8500116E4C /* pin@3x.png */; };
+		1C6586A11B02FC49000B09FB /* NetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6586A01B02FC49000B09FB /* NetUtils.m */; };
 		1C80EF791B0074A300D53552 /* iconfont-man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C80EF771B0074A300D53552 /* iconfont-man@2x.png */; };
 		1C80EF7A1B0074A300D53552 /* iconfont-man@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C80EF781B0074A300D53552 /* iconfont-man@3x.png */; };
 		1C80EF7D1B007D0D00D53552 /* FriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C80EF7C1B007D0D00D53552 /* FriendListViewController.m */; };
@@ -69,7 +70,7 @@
 		1CBA6F381AF775760051BACB /* CSqlite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBA6F331AF775760051BACB /* CSqlite.m */; };
 		1CBA6F391AF775760051BACB /* gps.db in Resources */ = {isa = PBXBuildFile; fileRef = 1CBA6F341AF775760051BACB /* gps.db */; };
 		1CBA6F3A1AF775760051BACB /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 1CBA6F351AF775760051BACB /* sqlite3.c */; };
-		1CC0F6941AFC583000D25722 /* NetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0F6931AFC583000D25722 /* NetUtils.m */; };
+		1CC0F6941AFC583000D25722 /* SinoNetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0F6931AFC583000D25722 /* SinoNetUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +135,8 @@
 		1C53E5BB1AF9BE8500116E4C /* ly@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ly@3x.png"; sourceTree = "<group>"; };
 		1C53E5BC1AF9BE8500116E4C /* pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin@2x.png"; sourceTree = "<group>"; };
 		1C53E5BD1AF9BE8500116E4C /* pin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin@3x.png"; sourceTree = "<group>"; };
+		1C65869F1B02FC49000B09FB /* NetUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetUtils.h; path = NetUitls/NetUtils.h; sourceTree = "<group>"; };
+		1C6586A01B02FC49000B09FB /* NetUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetUtils.m; path = NetUitls/NetUtils.m; sourceTree = "<group>"; };
 		1C80EF771B0074A300D53552 /* iconfont-man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-man@2x.png"; sourceTree = "<group>"; };
 		1C80EF781B0074A300D53552 /* iconfont-man@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-man@3x.png"; sourceTree = "<group>"; };
 		1C80EF7B1B007D0D00D53552 /* FriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListViewController.h; sourceTree = "<group>"; };
@@ -182,8 +185,8 @@
 		1CBA6F351AF775760051BACB /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
 		1CBA6F361AF775760051BACB /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		1CBA6F371AF775760051BACB /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
-		1CC0F6921AFC583000D25722 /* NetUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetUtils.h; path = NetUitls/NetUtils.h; sourceTree = "<group>"; };
-		1CC0F6931AFC583000D25722 /* NetUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetUtils.m; path = NetUitls/NetUtils.m; sourceTree = "<group>"; };
+		1CC0F6921AFC583000D25722 /* SinoNetUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SinoNetUtils.h; path = NetUitls/SinoNetUtils.h; sourceTree = "<group>"; };
+		1CC0F6931AFC583000D25722 /* SinoNetUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SinoNetUtils.m; path = NetUitls/SinoNetUtils.m; sourceTree = "<group>"; };
 		23743517C035308B3D9FC028 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B54703B77E0D2EA4E18B5805 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F4BC9028DE1DDB517D1770B8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -474,8 +477,10 @@
 		1CC0F6911AFC581600D25722 /* NetUtils */ = {
 			isa = PBXGroup;
 			children = (
-				1CC0F6921AFC583000D25722 /* NetUtils.h */,
-				1CC0F6931AFC583000D25722 /* NetUtils.m */,
+				1CC0F6921AFC583000D25722 /* SinoNetUtils.h */,
+				1CC0F6931AFC583000D25722 /* SinoNetUtils.m */,
+				1C65869F1B02FC49000B09FB /* NetUtils.h */,
+				1C6586A01B02FC49000B09FB /* NetUtils.m */,
 			);
 			name = NetUtils;
 			sourceTree = "<group>";
@@ -662,7 +667,7 @@
 			files = (
 				1C80EF7D1B007D0D00D53552 /* FriendListViewController.m in Sources */,
 				1CBA6F301AF7750F0051BACB /* KANullInputSource.m in Sources */,
-				1CC0F6941AFC583000D25722 /* NetUtils.m in Sources */,
+				1CC0F6941AFC583000D25722 /* SinoNetUtils.m in Sources */,
 				1C43415E1AFDBE5900C1AC3B /* CBPeripheral+Blocks.m in Sources */,
 				1C43415B1AFDBE5900C1AC3B /* CBCentralManager+Blocks.m in Sources */,
 				1CB7A94F1B00AAF800995A4F /* BaseViewController.m in Sources */,
@@ -689,6 +694,7 @@
 				1CBA6F291AF766EE0051BACB /* CLLocationManager+Block.m in Sources */,
 				1C535E4C1AF87519003FD0A0 /* MapPoint.m in Sources */,
 				1C43415F1AFDBE5900C1AC3B /* CBPeripheral+Debug.m in Sources */,
+				1C6586A11B02FC49000B09FB /* NetUtils.m in Sources */,
 				1C43415C1AFDBE5900C1AC3B /* CBCentralManager+Debug.m in Sources */,
 				1C267B0F1AF8B8A800D940FC /* FileManager.m in Sources */,
 			);

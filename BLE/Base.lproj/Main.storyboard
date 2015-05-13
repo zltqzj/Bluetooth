@@ -407,12 +407,24 @@
                                     <constraint firstAttribute="height" constant="19" id="rF5-Et-How"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距离" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M0B-25-cII">
+                                <rect key="frame" x="112" y="94" width="144" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="KWV-St-4cf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="M0B-25-cII" firstAttribute="leading" secondItem="hvD-FY-cJp" secondAttribute="trailing" constant="31" id="2xf-zY-iad"/>
                             <constraint firstItem="3pJ-3s-Cbk" firstAttribute="leading" secondItem="TQS-94-iYc" secondAttribute="leadingMargin" id="3N4-EC-x60"/>
+                            <constraint firstItem="M0B-25-cII" firstAttribute="top" secondItem="j0l-Qi-lqj" secondAttribute="bottom" constant="74" id="7CX-1b-PFn"/>
                             <constraint firstItem="fTd-I0-SCb" firstAttribute="top" secondItem="2EH-83-pn6" secondAttribute="bottom" constant="8" id="BFO-9Q-0aX"/>
                             <constraint firstItem="nBg-2z-fZV" firstAttribute="top" secondItem="j0l-Qi-lqj" secondAttribute="bottom" constant="74" id="Fju-xM-Y2W"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="M0B-25-cII" secondAttribute="trailing" constant="48" id="HAW-MX-hn6"/>
                             <constraint firstItem="3pJ-3s-Cbk" firstAttribute="top" secondItem="j0l-Qi-lqj" secondAttribute="bottom" constant="67" id="HNi-rH-49T"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nJY-Nz-V5a" secondAttribute="trailing" constant="-5" id="HYi-2A-S5g"/>
                             <constraint firstItem="hvD-FY-cJp" firstAttribute="top" secondItem="j0l-Qi-lqj" secondAttribute="bottom" constant="74" id="JHw-xc-ddw"/>
@@ -433,6 +445,7 @@
                     <navigationItem key="navigationItem" id="XuU-PA-7dU"/>
                     <connections>
                         <outlet property="bluetoothBtn" destination="3pJ-3s-Cbk" id="Kvo-2b-2uW"/>
+                        <outlet property="distanceLabel" destination="M0B-25-cII" id="Njv-e0-kNL"/>
                         <outlet property="log" destination="2EH-83-pn6" id="XXP-Ne-x8j"/>
                         <outlet property="signalStrengthen1" destination="nBg-2z-fZV" id="XHC-3x-dQs"/>
                         <outlet property="signalStrengthen2" destination="KF1-wk-AM2" id="OSL-jD-Lcs"/>

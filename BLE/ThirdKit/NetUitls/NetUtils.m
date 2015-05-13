@@ -7,37 +7,42 @@
 //
 
 #import "NetUtils.h"
- #import "AppDelegate.h"
+#import "AppDelegate.h"
 //#import "BlocksKit+UIKit"
 @implementation NetUtils
- 
 
 
-
-
++ (instancetype)manager {
+    static NetUtils *manager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        manager = [[NetUtils alloc] init];
+    });
+    return manager;
+}
 
 // af post方法
 -(void)requestContentWithUrl:(NSString*)urlString para:(NSDictionary*)dict withSuccessBlock:(AFCompletionBlock)successBlock withFailureBlock:(AFFailedBlcok)failureBlock{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-   // manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+    // manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     _manager = manager;
     
     NSString* base64 = [NSString stringWithFormat:@"%@%@",@"TuliPS14port20",CURRENT_USER_EMAIL];
-   
+    
     [_manager.requestSerializer setValue:base64 forHTTPHeaderField:@"Authorization"];
     
     NSString* url = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding ];
-  //  NSLog(@"%@",url);
+    //  NSLog(@"%@",url);
     [_manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         successBlock(responseObject);
-       // NSLog(@"%@",operation.responseString);
+        // NSLog(@"%@",operation.responseString);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",operation.responseString);
         NSLog(@"Error: %@", error);
         failureBlock(error);
     }];
-
+    
     
 }
 
@@ -52,7 +57,7 @@
     [_manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         successBlock(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         failureBlock(error);
+        failureBlock(error);
     }];
 }
 
@@ -60,16 +65,16 @@
 -(void)downLoadByaf:(NSString*)url withSuccessBlock:(AFDownLoadCompletionBlock)successBlock withFailureBlock:(ADownLoadFailedBlcok)failureBlock  {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-
+    
     NSURL *URL = [NSURL URLWithString:url];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     NSString* base64 = [NSString stringWithFormat:@"%@%@",@"TuliPS14port20",CURRENT_USER_EMAIL];
- 
+    
     [_manager.requestSerializer setValue:base64 forHTTPHeaderField:@"Authorization"];
     
     NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
         NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-     
+        
         return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         if (error) {
@@ -92,7 +97,7 @@
         NSLog(@"%@",formData);
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@",[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding]);
-       
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -102,10 +107,10 @@
 
 -(void)uploadImage1:(NSString *)url dict:(NSDictionary *)dict imageData:(NSData *)imageData fileName:(NSString *)fileName type:(NSString *)type abURL:(NSString*)abURL  list:(NSMutableArray*)list{
     
- 
     
-
-
+    
+    
+    
 }
 
 
@@ -118,13 +123,13 @@
 //-(void)downLoadByafWithURL:(NSString *)url withSuccessBlock:(AFDownLoadCompletionBlock)successBlock withFailureBlock:(ADownLoadFailedBlcok)failureBlock localPath:(NSString *)path{
 //    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
 //    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-//    
+//
 //    NSURL *URL = [NSURL URLWithString:url];
 //    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
 //    NSString* base64 = [NSString stringWithFormat:@"%@%@",@"TuliPS14port20",CURRENT_USER_EMAIL];
 //    base64 = [NSString encodeBase64String:base64];
 //    [_manager.requestSerializer setValue:base64 forHTTPHeaderField:@"Authorization"];
-//    
+//
 //    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
 //        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
 //        // NSLog(@"%@",[documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]]);
@@ -161,84 +166,5 @@
  http://img.tulipsport.com/activityimgs/932_20140828184335088568.jpg（原图）
  http://img.tulipsport.com/activityimgs/932_20140828184335088568_min.jpg（最小型图片,宽200）
  */
-
-
-
-/*
-NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-
-NSURL *URL = [NSURL URLWithString:@"http://example.com/download.zip"];
-NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-
-NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-    NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-    return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-} completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-    NSLog(@"File downloaded to: %@", filePath);
-}];
-[downloadTask resume];
-*?
-
-
-
-// 检查更新
--(void)getUpdate:(updateBlock)completonBlock{
-   
-//    [self requestContentWithUrl:UPDATE para:nil withSuccessBlock:^(id returnData) {
-//        if ([returnData isKindOfClass:[NSDictionary class]]) {
-//             NSString* verCode = [returnData objectForKey:@"verCode"];
-//            NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
-//            NSString *nowVersion = [infoDict objectForKey:@"CFBundleShortVersionString"];
-//            
-//            NSURL* url = [NSURL URLWithString:DOWNLOAD];
-//            
-//            if (![verCode isEqualToString:nowVersion] &&verCode ) {
-//                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"版本更新" delegate:self cancelButtonTitle:@"暂不升级" otherButtonTitles:@"马上升级", nil];
-//                [alert showWithCompletionHandler:^(NSInteger buttonIndex) {
-//                    switch (buttonIndex) {
-//                        case 0:
-//                            NSLog(@"暂不升级");
-//                            break;
-//                        case 1:
-//                            NSLog(@"马上升级");
-//                            
-//                            [[UIApplication sharedApplication] openURL:url];
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                }];
-//            }
-//        }
-//    } withFailureBlock:^(NSError *error) {
-//        
-//    }];
-    
- 
-}
-
-
-/*  调用方法
- 
- [dataConnector getContentsOfURLFromString:[self.urlTextField text]
- withSuccessBlock:(DataConnectorSuccessBlock)^(NSString * resultString) {
- [self.textView setText:resultString];
- 
- 
- }
- withFailureBlock:(DataConnectorFailureBlock)^(NSError * error) {
- [self.textView setText:[error description]];
- 
- }];
-
-
- */
-
-
- 
-
-
-
 
 @end
