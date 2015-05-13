@@ -12,7 +12,7 @@
 #import "NetUtils.h"
 #import "MapPoint.h"
 #import "FriendListViewController.h"
-
+#import "SinoNetUtils.h"
 static NSInteger const listYValue   = 55;
 
 
@@ -22,6 +22,8 @@ static NSInteger const listYValue   = 55;
 @property(strong,nonatomic)  NSMutableArray* annoArray;
 @property(strong,nonatomic) FriendListViewController* friendVC;
 @property(assign,nonatomic)  BOOL showingFriendList;
+@property(strong,nonatomic) SinoNetUtils* sinoNetUtils;
+
 @end
 
 @implementation Tab1ViewController
@@ -59,15 +61,32 @@ static NSInteger const listYValue   = 55;
  
     _annoArray = [[NSMutableArray alloc] initWithCapacity:0];
 
+    _sinoNetUtils = [SinoNetUtils manager];
+    [_sinoNetUtils getLocatonList1WithUrl:GPS1_RESULT success:^(id returnData) {
+       // NSLog(@"%@",returnData);
+        vc.listData = [NSMutableArray arrayWithArray:returnData];
+        
+        [vc.listData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            // 取每一项的第一个字典
+            NSDictionary *dict = obj[0];
+            
+            CLLocationCoordinate2D lo = CLLocationCoordinate2DMake([dict[@"gps_lat"] doubleValue],[dict[@"gps_lng"] doubleValue]);
+            
+            MapPoint* mmp = [[MapPoint alloc] initWithCoordinate2D:lo];
+            mmp.title =@"张三"; //dict[@""];
+            mmp.subtitle = dict[@"time"];
+            [vc.annoArray addObject:mmp];
+            
+        }];
+        [vc.mapView addAnnotations:vc.annoArray];
+    } failure:^(NSError *error) {
+         NSLog(@"%@",error);
+    }];
+    
+    
+    /*
     _netUtils = [NetUtils manager];
-//    [_netUtils getLocatonList1WithUrl:GPS1_RESULT success:^(id returnData) {
-//        NSLog(@"%@",returnData);
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//    }];
     
-    
-    _netUtils = [[NetUtils alloc] init];
     [_netUtils GetContentWithUrl:GPS1_RESULT withSuccessBlock:^(id returnData) {
          //NSLog(@"%@",returnData);
         vc.listData = [NSMutableArray arrayWithArray:returnData];
@@ -84,16 +103,14 @@ static NSInteger const listYValue   = 55;
             [vc.annoArray addObject:mmp];
             
         }];
-        
-        
         [vc.mapView addAnnotations:vc.annoArray];
-        
-        
         //[vc.listTable reloadData];
         
     } withFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
+    
+    */
     
     
     

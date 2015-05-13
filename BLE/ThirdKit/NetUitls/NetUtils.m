@@ -50,6 +50,8 @@
 -(void)GetContentWithUrl:(NSString*)urlString   withSuccessBlock:(AFCompletionBlock) successBlock
         withFailureBlock:(AFFailedBlcok) failureBlock{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
+    self.manager.responseSerializer = responseSerializer;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     _manager = manager;
     
@@ -103,15 +105,6 @@
     }];
 }
 
-
-
--(void)uploadImage1:(NSString *)url dict:(NSDictionary *)dict imageData:(NSData *)imageData fileName:(NSString *)fileName type:(NSString *)type abURL:(NSString*)abURL  list:(NSMutableArray*)list{
-    
-    
-    
-    
-    
-}
 
 
 
