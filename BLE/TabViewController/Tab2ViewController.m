@@ -8,6 +8,7 @@
 
 #import "Tab2ViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "CSPausibleTimer.h"
 
 #define kServiceUUID           @"FFF0"
 #define kCharacteristicUUID    @"FFF1"
@@ -16,17 +17,28 @@
 @property (strong,nonatomic) CBCentralManager *centralManager;//中心设备管理器
 @property (strong,nonatomic) NSMutableArray *peripherals;//连接的外围设备
 @property (strong,nonatomic) CBPeripheral * peripheral;//外设
+@property(strong,nonatomic) CSPausibleTimer* timer;  // 定时器
+@property(assign,nonatomic) BOOL IS_CONNECTING;// 正在连接状态
+
 @end
 
 @implementation Tab2ViewController
 
 
+
+
 -(IBAction)connect2device:(id)sender{
+    _centralManager = nil;
     _centralManager=[[CBCentralManager alloc]initWithDelegate:self queue:nil];
+    if ([_timer isPaused]) {
+        [_timer start];
+    }
 
 }
 
 -(IBAction)cancelConnect2Device:(id)sender{
+    [_timer pause];
+
     if (_peripheral !=nil) {
         [_centralManager cancelPeripheralConnection:_peripheral];
     }
@@ -34,6 +46,8 @@
     [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal_gray"]];
     [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal_gray"]];
     [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
+    _rssiLabel.text = @"信号强度";
+    _distanceLabel.text = @"距离";
 }
 
 
@@ -47,10 +61,22 @@
     SETTING_NAVGATION_STYLE
     self.title = @"蓝牙";
     [self.tabBarController.tabBar setHidden:NO];
+    _timer =   [CSPausibleTimer timerWithTimeInterval:5 target:self selector:@selector(readBLRSSI) userInfo:nil repeats:YES];
+    [_timer start];
+
+   // [NSTimer timerWithTimeInterval:5 target:self selector:@selector(readBLRSSI) userInfo:nil repeats:YES];
     // Do any additional setup after loading the view.
 }
 
 
+// 定时器的方法
+-(void)readBLRSSI{
+    if (_peripheral !=nil) {
+        [_peripheral readRSSI];
+
+    }
+
+}
 
 
 #pragma  mark - RSSI
@@ -101,8 +127,8 @@
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central{
     switch (central.state) {
         case CBPeripheralManagerStatePoweredOn:
-            NSLog(@"BLE已打开.");
-            [self writeToLog:@"BLE已打开."];
+            NSLog(@"蓝牙已打开.");
+            [self writeToLog:@"蓝牙已打开."];
             //扫描外围设备
             //            [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:kServiceUUID]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
             [central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
@@ -128,10 +154,18 @@
  *  @param RSSI              信号质量（信号强度）
  */
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
-    
+    /*
+     NSLog(@"%@",advertisementData);
+
+     {
+     kCBAdvDataIsConnectable = 1;
+     }
+
+     */
     // rssi强度 0~-50 Immediate
     // -50~-80 near
     // <-80   far
+    _rssiLabel.text = [NSString stringWithFormat:@"%@",RSSI];
     int rssi = [RSSI intValue];
     [self signalStrengthenSetting:rssi];
    
@@ -217,8 +251,11 @@
                 //情景二：读取
                 [peripheral readValueForCharacteristic:characteristic];
                     if(characteristic.value){
-                        NSString *value=[[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-                        NSLog(@"读取到特征值：%@",value);
+                        NSString *value=[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+                        if (value!=nil) {
+                            NSLog(@"读取到特征值：%@",value);
+
+                        }
                 }
            // }
         }
@@ -249,24 +286,28 @@
             
         }else{
             NSLog(@"停止已停止.");
-            [self writeToLog:@"停止已停止."];
+          //  [self writeToLog:@"已停止."];
             //取消连接
-            [self.centralManager cancelPeripheralConnection:peripheral];
+           // [self.centralManager cancelPeripheralConnection:peripheral];
         }
     }
 }
 //更新特征值后（调用readValueForCharacteristic:方法或者外围设备在订阅后更新特征值都会调用此代理方法）
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    
     if (error) {
         NSLog(@"更新特征值时发生错误，错误信息：%@",error.localizedDescription);
-        [self writeToLog:[NSString stringWithFormat:@"更新特征值时发生错误，错误信息：%@",error.localizedDescription]];
+       // [self writeToLog:[NSString stringWithFormat:@"更新特征值时发生错误，错误信息：%@",error.localizedDescription]];
         return;
     }
     if (characteristic.value) {
         NSLog(@"读写权限%lu",(unsigned long)characteristic.properties);
         NSString *value=[[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-        NSLog(@"读取到特征值：%@",value);
-        [self writeToLog:[NSString stringWithFormat:@"读取到特征值：%@",value]];
+        if (value!=nil) {
+            NSLog(@"读取到特征值：%@",value);
+            [self writeToLog:[NSString stringWithFormat:@"读取到特征值：%@",value]];
+
+        }
     }else{
         NSLog(@"未发现特征值.");
         [self writeToLog:@"未发现特征值."];
@@ -278,18 +319,51 @@
     NSMutableData* recieveData = [NSMutableData new];
     [recieveData appendData:characteristic.value];
     NSLog(@"%@",recieveData);
-//    if ([recieveData length] >= 5)//已收到长度
-//    {
-//       unsigned char  *buffer = (unsigned  char *)[recieveData bytes];
-//        int nLen = buffer[3]*256 + buffer[4];
-//        if ([recieveData length] == (nLen+3+2+2))
-//        {
-//            NSLog(@"%s,%d",buffer,nLen);
-//        }
-//    }
+    [self writeToLog:[self hexStringFromNSData:recieveData]];
+    
+ 
 
     
 }
+
+- (NSString *)hexStringFromNSData:(NSData *)data
+{
+    NSUInteger capacity = [data length] * 2;
+    
+    NSMutableString *string = [NSMutableString stringWithCapacity:capacity];
+    const unsigned char *dataBuffer = [data bytes];
+    
+    for (NSUInteger i = 0; i < [data length]; ++i)
+    {
+        [string appendFormat:@"%02lX", (unsigned long)dataBuffer[i]];
+    }
+    
+    return string;
+}
+
+
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error {
+    NSLog(@"信号强度:%@",peripheral.RSSI);
+    _rssiLabel.text = [NSString stringWithFormat:@"%@",peripheral.RSSI];
+
+}
+
+/*!
+ *  @method peripheral:didReadRSSI:error:
+ *
+ *  @param peripheral	The peripheral providing this update.
+ *  @param RSSI			The current RSSI of the link.
+ *  @param error		If an error occurred, the cause of the failure.
+ *
+ *  @discussion			This method returns the result of a @link readRSSI: @/link call.
+ */
+- (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error {
+    NSLog(@"信号强度:%@",RSSI);
+    _rssiLabel.text = [NSString stringWithFormat:@"%@", RSSI];
+
+
+}
+
 #pragma mark - 属性
 -(NSMutableArray *)peripherals{
     if(!_peripherals){
@@ -311,7 +385,14 @@
  *  @param info 日志信息
  */
 -(void)writeToLog:(NSString *)info{
+    if (info ==nil) {
+        return;
+    }
     self.log.text=[NSString stringWithFormat:@"%@\r\n%@",self.log.text,info];
+}
+
+-(void)dealloc{
+    NSLog(@"蓝牙界面销毁啦");
 }
 
 @end

@@ -24,7 +24,7 @@
     [_listData addObject:@"张三"];
     [_listData addObject:@"李四"];
 
-    [_listData addObject:@"王二麻子"];
+    [_listData addObject:@"王五"];
 
     [_listData addObject:@"赵六"];
     [_listData addObject:@"李瑞卿"];

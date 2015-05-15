@@ -11,7 +11,9 @@
 
 @interface Tab2ViewController : BaseViewController
 @property(weak,nonatomic) IBOutlet UILabel* distanceLabel;
-@property(weak,nonatomic) IBOutlet UILabel* log;
+@property(weak,nonatomic) IBOutlet UILabel* rssiLabel;
+
+@property(weak,nonatomic) IBOutlet UITextView* log;
 
 -(IBAction)connect2device:(id)sender;
 -(IBAction)cancelConnect2Device:(id)sender;

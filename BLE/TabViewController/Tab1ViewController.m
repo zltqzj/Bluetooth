@@ -13,6 +13,7 @@
 #import "MapPoint.h"
 #import "FriendListViewController.h"
 #import "SinoNetUtils.h"
+#import "ProgressHUD.h"
 static NSInteger const listYValue   = 55;
 
 
@@ -62,6 +63,9 @@ static NSInteger const listYValue   = 55;
     _annoArray = [[NSMutableArray alloc] initWithCapacity:0];
 
     _sinoNetUtils = [SinoNetUtils manager];
+    
+    [ProgressHUD show:@"正在查询……"];
+    
     [_sinoNetUtils getLocatonList1WithUrl:GPS1_RESULT success:^(id returnData) {
        // NSLog(@"%@",returnData);
         vc.listData = [NSMutableArray arrayWithArray:returnData];
@@ -79,8 +83,10 @@ static NSInteger const listYValue   = 55;
             
         }];
         [vc.mapView addAnnotations:vc.annoArray];
+        [ProgressHUD showSuccess:nil];
     } failure:^(NSError *error) {
          NSLog(@"%@",error);
+        [ProgressHUD showError:nil];
     }];
     
     

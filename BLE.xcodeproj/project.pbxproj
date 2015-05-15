@@ -44,6 +44,8 @@
 		1C80EF791B0074A300D53552 /* iconfont-man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C80EF771B0074A300D53552 /* iconfont-man@2x.png */; };
 		1C80EF7A1B0074A300D53552 /* iconfont-man@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C80EF781B0074A300D53552 /* iconfont-man@3x.png */; };
 		1C80EF7D1B007D0D00D53552 /* FriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C80EF7C1B007D0D00D53552 /* FriendListViewController.m */; };
+		1C97B9BC1B05CDE8003BCF5C /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C97B9B91B05CDE8003BCF5C /* ProgressHUD.bundle */; };
+		1C97B9BD1B05CDE8003BCF5C /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C97B9BB1B05CDE8003BCF5C /* ProgressHUD.m */; };
 		1CB1EF3D1B01EBA7002DA496 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF3C1B01EBA7002DA496 /* LoginViewController.m */; };
 		1CB1EF401B01EBEC002DA496 /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF3F1B01EBEC002DA496 /* RegistViewController.m */; };
 		1CB1EF431B01EEBE002DA496 /* login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB1EF411B01EEBE002DA496 /* login@2x.png */; };
@@ -141,6 +143,9 @@
 		1C80EF781B0074A300D53552 /* iconfont-man@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-man@3x.png"; sourceTree = "<group>"; };
 		1C80EF7B1B007D0D00D53552 /* FriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListViewController.h; sourceTree = "<group>"; };
 		1C80EF7C1B007D0D00D53552 /* FriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListViewController.m; sourceTree = "<group>"; };
+		1C97B9B91B05CDE8003BCF5C /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		1C97B9BA1B05CDE8003BCF5C /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		1C97B9BB1B05CDE8003BCF5C /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		1CB1EF3B1B01EBA7002DA496 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1CB1EF3C1B01EBA7002DA496 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1CB1EF3E1B01EBEC002DA496 /* RegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistViewController.h; sourceTree = "<group>"; };
@@ -310,6 +315,16 @@
 			path = BLE/image;
 			sourceTree = "<group>";
 		};
+		1C97B9B81B05CDE8003BCF5C /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1C97B9B91B05CDE8003BCF5C /* ProgressHUD.bundle */,
+				1C97B9BA1B05CDE8003BCF5C /* ProgressHUD.h */,
+				1C97B9BB1B05CDE8003BCF5C /* ProgressHUD.m */,
+			);
+			path = ProgressHUD;
+			sourceTree = "<group>";
+		};
 		1CB1EF3A1B01EB9E002DA496 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,6 +422,7 @@
 		1CBA6F021AF7616D0051BACB /* ThirdKit */ = {
 			isa = PBXGroup;
 			children = (
+				1C97B9B81B05CDE8003BCF5C /* ProgressHUD */,
 				1CC0F6911AFC581600D25722 /* NetUtils */,
 				1C267B0C1AF8B8A800D940FC /* NSFileManager */,
 				1C535E271AF85B94003FD0A0 /* NSTimer */,
@@ -610,6 +626,7 @@
 				1C53E5B81AF9BACC00116E4C /* iconfont-ditu@2x.png in Resources */,
 				1CBA6EEA1AF761210051BACB /* Images.xcassets in Resources */,
 				1CB7A9491B008CDD00995A4F /* lanya_on@3x.png in Resources */,
+				1C97B9BC1B05CDE8003BCF5C /* ProgressHUD.bundle in Resources */,
 				1C53E5AD1AF9ABFC00116E4C /* map_end@2x.png in Resources */,
 				1C80EF791B0074A300D53552 /* iconfont-man@2x.png in Resources */,
 				1C53E5AE1AF9ABFC00116E4C /* milestone_on.png in Resources */,
@@ -671,6 +688,7 @@
 				1C43415E1AFDBE5900C1AC3B /* CBPeripheral+Blocks.m in Sources */,
 				1C43415B1AFDBE5900C1AC3B /* CBCentralManager+Blocks.m in Sources */,
 				1CB7A94F1B00AAF800995A4F /* BaseViewController.m in Sources */,
+				1C97B9BD1B05CDE8003BCF5C /* ProgressHUD.m in Sources */,
 				1C53E5B41AF9B43300116E4C /* KilometerAnno.m in Sources */,
 				1C535E391AF86024003FD0A0 /* Tab1Cell.m in Sources */,
 				1C53E5B51AF9B43300116E4C /* KilometerAnotationView.m in Sources */,
