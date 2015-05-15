@@ -5,40 +5,29 @@
 //  Created by ZKR on 5/5/15.
 //  Copyright (c) 2015 ZKR. All rights reserved.
 //
-
 #import "Tab2ViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "CSPausibleTimer.h"
-
 #define kServiceUUID           @"FFF0"
 #define kCharacteristicUUID    @"FFF1"
-
 @interface Tab2ViewController ()  <CBCentralManagerDelegate,CBPeripheralDelegate>
 @property (strong,nonatomic) CBCentralManager *centralManager;//中心设备管理器
 @property (strong,nonatomic) NSMutableArray *peripherals;//连接的外围设备
 @property (strong,nonatomic) CBPeripheral * peripheral;//外设
 @property(strong,nonatomic) CSPausibleTimer* timer;  // 定时器
 @property(assign,nonatomic) BOOL IS_CONNECTING;// 正在连接状态
-
 @end
-
 @implementation Tab2ViewController
-
-
-
-
 -(IBAction)connect2device:(id)sender{
+    
     _centralManager = nil;
     _centralManager=[[CBCentralManager alloc]initWithDelegate:self queue:nil];
     if ([_timer isPaused]) {
         [_timer start];
     }
-
 }
-
 -(IBAction)cancelConnect2Device:(id)sender{
     [_timer pause];
-
     if (_peripheral !=nil) {
         [_centralManager cancelPeripheralConnection:_peripheral];
     }
@@ -49,38 +38,27 @@
     _rssiLabel.text = @"信号强度";
     _distanceLabel.text = @"距离";
 }
-
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self.tabBarController.tabBar setHidden:NO];
- }
-
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     SETTING_NAVGATION_STYLE
     self.title = @"蓝牙";
     [self.tabBarController.tabBar setHidden:NO];
+    
     _timer =   [CSPausibleTimer timerWithTimeInterval:5 target:self selector:@selector(readBLRSSI) userInfo:nil repeats:YES];
     [_timer start];
-
-   // [NSTimer timerWithTimeInterval:5 target:self selector:@selector(readBLRSSI) userInfo:nil repeats:YES];
-    // Do any additional setup after loading the view.
+    
 }
-
-
 // 定时器的方法
 -(void)readBLRSSI{
     if (_peripheral !=nil) {
         [_peripheral readRSSI];
-
     }
-
 }
-
-
 #pragma  mark - RSSI
-
 // 蓝牙RSSI计算距离
 - (float)calcDistByRSSI:(int)rssi
 {
@@ -91,7 +69,6 @@
     float power = (iRssi-59)/(10*2.0);
     return pow(10, power);
 }
-
 // 信号强度判断
 -(void)signalStrengthenSetting:(int)rssi{
     if (rssi < 0 && rssi >-50) {
@@ -103,14 +80,13 @@
         [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal"]];
         [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal"]];
         [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
-
     }
     else if (rssi < -80)
     {
         [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal_gray"]];
         [_signalStrengthen2 setImage:[UIImage imageNamed:@"signal_gray"]];
         [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
- 
+        
     }
     else{
         [_signalStrengthen1 setImage:[UIImage imageNamed:@"signal_gray"]];
@@ -118,11 +94,7 @@
         [_signalStrengthen3 setImage:[UIImage imageNamed:@"signal_gray"]];
     }
 }
-
-
-
 #pragma  mark - CBCentralManagerDelegate
-
 //中心服务器状态更新后
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central{
     switch (central.state) {
@@ -131,7 +103,7 @@
             [self writeToLog:@"蓝牙已打开."];
             //扫描外围设备
             //            [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:kServiceUUID]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
-            [central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
+            [central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@NO}];
             break;
             
         default:
@@ -144,7 +116,6 @@
             break;
     }
 }
-
 /**
  *  发现外围设备
  *
@@ -156,21 +127,26 @@
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
     /*
      NSLog(@"%@",advertisementData);
-
      {
      kCBAdvDataIsConnectable = 1;
      }
-
      */
     // rssi强度 0~-50 Immediate
     // -50~-80 near
     // <-80   far
-    _rssiLabel.text = [NSString stringWithFormat:@"%@",RSSI];
     int rssi = [RSSI intValue];
+    if (rssi < -80) {
+        [self writeToLog:@"连接失败，请重新连接"];
+        [self cancelConnect2Device:nil];
+        return;
+    }
+    else{
+    _rssiLabel.text = [NSString stringWithFormat:@"%@",RSSI];
+
     [self signalStrengthenSetting:rssi];
-   
+    
     _distanceLabel.text = [NSString stringWithFormat:@"%.2f米",[self calcDistByRSSI:rssi]];
-                 
+    
     NSLog(@"信号强度: %@", [RSSI stringValue]);
     [self writeToLog:@"发现外围设备..."];
     //停止扫描
@@ -185,7 +161,7 @@
         [self writeToLog:@"开始连接外围设备..."];
         [self.centralManager connectPeripheral:peripheral options:nil];
     }
-    
+    }
 }
 //连接到外围设备
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
@@ -202,8 +178,6 @@
     NSLog(@"连接外围设备失败!");
     [self writeToLog:@"连接外围设备失败!"];
 }
-
-
 #pragma mark - CBPeripheral 代理方法
 //外围设备寻找到服务后
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error{
@@ -219,11 +193,10 @@
     for (CBService *service in peripheral.services) {
         NSLog(@"%@",service.UUID);
         [peripheral discoverCharacteristics:nil forService:service];
-
-//        if([service.UUID isEqual:serviceUUID]){
-//            //外围设备查找指定服务中的特征
-//            [peripheral discoverCharacteristics:nil forService:service];
-//        }
+        //        if([service.UUID isEqual:serviceUUID]){
+        //            //外围设备查找指定服务中的特征
+        //            [peripheral discoverCharacteristics:nil forService:service];
+        //        }
     }
 }
 //外围设备寻找到特征后
@@ -237,34 +210,29 @@
     //遍历服务中的特征
     CBUUID *serviceUUID=[CBUUID UUIDWithString:kServiceUUID];
     CBUUID *characteristicUUID=[CBUUID UUIDWithString:kCharacteristicUUID];
-   // if ([service.UUID isEqual:serviceUUID]) {
-        for (CBCharacteristic *characteristic in service.characteristics) {
-           // if ([characteristic.UUID isEqual:characteristicUUID]) {
-                //情景一：通知
-                /*找到特征后设置外围设备为已通知状态（订阅特征）：
-                 *1.调用此方法会触发代理方法：-(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
-                 *2.调用此方法会触发外围设备的订阅代理方法
-                 */
-            NSLog(@"%@",characteristic.description);
-
-                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-                //情景二：读取
-                [peripheral readValueForCharacteristic:characteristic];
-                    if(characteristic.value){
-                        NSString *value=[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-                        if (value!=nil) {
-                            NSLog(@"读取到特征值：%@",value);
-
-                        }
-                }
-           // }
+    // if ([service.UUID isEqual:serviceUUID]) {
+    for (CBCharacteristic *characteristic in service.characteristics) {
+        // if ([characteristic.UUID isEqual:characteristicUUID]) {
+        //情景一：通知
+        /*找到特征后设置外围设备为已通知状态（订阅特征）：
+         *1.调用此方法会触发代理方法：-(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+         *2.调用此方法会触发外围设备的订阅代理方法
+         */
+        NSLog(@"%@",characteristic.description);
+        [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+        //情景二：读取
+        [peripheral readValueForCharacteristic:characteristic];
+        if(characteristic.value){
+            NSString *value=[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+            if (value!=nil) {
+                NSLog(@"读取到特征值：%@",value);
+            }
         }
-   // }
+        // }
+    }
+    // }
 }
-
-
 //特征值被更新后      [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
     NSLog(@"收到特征更新通知...");
     [self writeToLog:@"收到特征更新通知..."];
@@ -286,9 +254,9 @@
             
         }else{
             NSLog(@"停止已停止.");
-          //  [self writeToLog:@"已停止."];
+            //  [self writeToLog:@"已停止."];
             //取消连接
-           // [self.centralManager cancelPeripheralConnection:peripheral];
+            // [self.centralManager cancelPeripheralConnection:peripheral];
         }
     }
 }
@@ -297,7 +265,7 @@
     
     if (error) {
         NSLog(@"更新特征值时发生错误，错误信息：%@",error.localizedDescription);
-       // [self writeToLog:[NSString stringWithFormat:@"更新特征值时发生错误，错误信息：%@",error.localizedDescription]];
+        // [self writeToLog:[NSString stringWithFormat:@"更新特征值时发生错误，错误信息：%@",error.localizedDescription]];
         return;
     }
     if (characteristic.value) {
@@ -306,7 +274,6 @@
         if (value!=nil) {
             NSLog(@"读取到特征值：%@",value);
             [self writeToLog:[NSString stringWithFormat:@"读取到特征值：%@",value]];
-
         }
     }else{
         NSLog(@"未发现特征值.");
@@ -321,11 +288,9 @@
     NSLog(@"%@",recieveData);
     [self writeToLog:[self hexStringFromNSData:recieveData]];
     
- 
-
+    
     
 }
-
 - (NSString *)hexStringFromNSData:(NSData *)data
 {
     NSUInteger capacity = [data length] * 2;
@@ -340,14 +305,10 @@
     
     return string;
 }
-
-
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"信号强度:%@",peripheral.RSSI);
     _rssiLabel.text = [NSString stringWithFormat:@"%@",peripheral.RSSI];
-
 }
-
 /*!
  *  @method peripheral:didReadRSSI:error:
  *
@@ -360,10 +321,7 @@
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error {
     NSLog(@"信号强度:%@",RSSI);
     _rssiLabel.text = [NSString stringWithFormat:@"%@", RSSI];
-
-
 }
-
 #pragma mark - 属性
 -(NSMutableArray *)peripherals{
     if(!_peripherals){
@@ -371,13 +329,10 @@
     }
     return _peripherals;
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 #pragma mark - 私有方法
 /**
  *  记录日志
@@ -390,9 +345,7 @@
     }
     self.log.text=[NSString stringWithFormat:@"%@\r\n%@",self.log.text,info];
 }
-
 -(void)dealloc{
     NSLog(@"蓝牙界面销毁啦");
 }
-
 @end
