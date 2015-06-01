@@ -11,6 +11,7 @@
 #import "Tab2ViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "LoginViewController.h"
+#import "DeviceListViewController.h"
 @interface ViewController ()
 <CBCentralManagerDelegate,CBPeripheralDelegate>
 @property (strong,nonatomic) CBCentralManager *centralManager;//中心设备管理器
@@ -23,9 +24,10 @@
 
 
 -(IBAction)connectDevice:(id)sender{
-    Tab2ViewController* tab2 = viewOnSb(@"Tab2ViewController");
+    DeviceListViewController* device = viewOnSb(@"DeviceListViewController");
+//    Tab2ViewController* tab2 = viewOnSb(@"Tab2ViewController");
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController pushViewController:tab2 animated:YES];
+    [self.navigationController pushViewController:device animated:YES];
 }
 
 -(IBAction)gotoMap:(id)sender{
@@ -41,8 +43,7 @@
     _centralManager=[[CBCentralManager alloc]initWithDelegate:self queue:nil];
 
   //  _locationThread = [LocationThread sharedManager];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"登录" style:UIBarButtonItemStyleBordered target:self action:@selector(login)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"好友地图" style:UIBarButtonItemStyleBordered target:self action:@selector(gotoMap:)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
 }
 

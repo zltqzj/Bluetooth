@@ -25,12 +25,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
+    _username.delegate = self;
+    _password.delegate = self;
     // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [_password resignFirstResponder];
+    [_username resignFirstResponder];
 }
 
 /*

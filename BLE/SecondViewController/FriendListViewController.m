@@ -36,10 +36,10 @@
     
     
     // 添加传统的下拉刷新
-    [_listTable addLegendHeaderWithRefreshingBlock:^{
-        // 进入刷新状态后会自动调用这个block
-        [vc.listTable.header endRefreshing];
-    }];
+//    [_listTable addLegendHeaderWithRefreshingBlock:^{
+//        // 进入刷新状态后会自动调用这个block
+//        [vc.listTable.header endRefreshing];
+//    }];
     
     // 马上进入刷新状态
    // [_listTable.header beginRefreshing];
@@ -95,5 +95,10 @@
     return 50;
 }
 
+
+-(void)dealloc{
+    NSLog(@"好友界面销毁");
+   
+}
 
 @end

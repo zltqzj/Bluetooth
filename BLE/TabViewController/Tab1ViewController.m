@@ -72,13 +72,16 @@ static NSInteger const listYValue   = 55;
         
         [vc.listData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             // 取每一项的第一个字典
-            NSDictionary *dict = obj[0];
             
+            NSDictionary *dict = obj[0] ;
+        
+
             CLLocationCoordinate2D lo = CLLocationCoordinate2DMake([dict[@"gps_lat"] doubleValue],[dict[@"gps_lng"] doubleValue]);
             
             MapPoint* mmp = [[MapPoint alloc] initWithCoordinate2D:lo];
             mmp.title =@"张三"; //dict[@""];
             mmp.subtitle = dict[@"time"];
+            NSLog(@"%@",dict[@"time"]);
             [vc.annoArray addObject:mmp];
             
         }];
@@ -302,4 +305,10 @@ static NSInteger const listYValue   = 55;
     return 65;
 }
 */
+
+
+-(void)dealloc{
+    NSLog(@"地图销毁");
+    [ProgressHUD dismiss];
+}
 @end

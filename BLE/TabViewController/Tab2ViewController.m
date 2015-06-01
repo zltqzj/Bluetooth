@@ -6,26 +6,36 @@
 //  Copyright (c) 2015 ZKR. All rights reserved.
 //
 #import "Tab2ViewController.h"
-#import <CoreBluetooth/CoreBluetooth.h>
 #import "CSPausibleTimer.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #define kServiceUUID           @"FFF0"
 #define kCharacteristicUUID    @"FFF1"
-@interface Tab2ViewController ()  <CBCentralManagerDelegate,CBPeripheralDelegate>
+
+#define MIN_VARI 25
+#import <AVFoundation/AVFoundation.h>
+@interface Tab2ViewController ()  <CBCentralManagerDelegate,CBPeripheralDelegate,UIAlertViewDelegate,AVAudioPlayerDelegate>
 @property (strong,nonatomic) CBCentralManager *centralManager;//中心设备管理器
 @property (strong,nonatomic) NSMutableArray *peripherals;//连接的外围设备
-@property (strong,nonatomic) CBPeripheral * peripheral;//外设
 @property(strong,nonatomic) CSPausibleTimer* timer;  // 定时器
 @property(assign,nonatomic) BOOL IS_CONNECTING;// 正在连接状态
+@property (strong,nonatomic) NSMutableArray *rssiArr;// 信号的数组（10秒，5个）
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;// 播放音频的对象
+@property (atomic, assign) BOOL okToPlaySound;// 是否可以播放的一个标志位
+
 @end
 @implementation Tab2ViewController
+@synthesize audioPlayer = _audioPlayer;
 -(IBAction)connect2device:(id)sender{
-    
-    _centralManager = nil;
-    _centralManager=[[CBCentralManager alloc]initWithDelegate:self queue:nil];
+  _centralManager = nil;
+    _centralManager=[[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    [self.centralManager connectPeripheral:self.peripheral options:nil];
     if ([_timer isPaused]) {
         [_timer start];
     }
+    
 }
+
 -(IBAction)cancelConnect2Device:(id)sender{
     [_timer pause];
     if (_peripheral !=nil) {
@@ -38,20 +48,25 @@
     _rssiLabel.text = @"信号强度";
     _distanceLabel.text = @"距离";
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self.tabBarController.tabBar setHidden:NO];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     SETTING_NAVGATION_STYLE
-    self.title = @"蓝牙";
+    self.title = @"连接外设";
     [self.tabBarController.tabBar setHidden:NO];
     
-    _timer =   [CSPausibleTimer timerWithTimeInterval:5 target:self selector:@selector(readBLRSSI) userInfo:nil repeats:YES];
+    _timer =   [CSPausibleTimer timerWithTimeInterval:2 target:self selector:@selector(readBLRSSI) userInfo:nil repeats:YES];
     [_timer start];
-    
+   // [self playSound];
+    _periName.text = _peripheral.name;
 }
+
+
 // 定时器的方法
 -(void)readBLRSSI{
     if (_peripheral !=nil) {
@@ -63,10 +78,10 @@
 - (float)calcDistByRSSI:(int)rssi
 {
     int iRssi = abs(rssi);
-    if (iRssi>80) {
+    if (iRssi>90) {
         return 0;
     }
-    float power = (iRssi-59)/(10*2.0);
+    float power = (iRssi-66)/(10*2.5);
     return pow(10, power);
 }
 // 信号强度判断
@@ -103,7 +118,7 @@
             [self writeToLog:@"蓝牙已打开."];
             //扫描外围设备
             //            [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:kServiceUUID]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
-            [central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@NO}];
+            [central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
             break;
             
         default:
@@ -124,18 +139,15 @@
  *  @param advertisementData 特征数据
  *  @param RSSI              信号质量（信号强度）
  */
+
+
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
-    /*
-     NSLog(@"%@",advertisementData);
-     {
-     kCBAdvDataIsConnectable = 1;
-     }
-     */
+    
     // rssi强度 0~-50 Immediate
     // -50~-80 near
     // <-80   far
     int rssi = [RSSI intValue];
-    if (rssi < -80) {
+    if (rssi < -90) {
         [self writeToLog:@"连接失败，请重新连接"];
         [self cancelConnect2Device:nil];
         return;
@@ -149,6 +161,8 @@
     
     NSLog(@"信号强度: %@", [RSSI stringValue]);
     [self writeToLog:@"发现外围设备..."];
+     //   _periName.text = peripheral.name;
+        
     //停止扫描
     [self.centralManager stopScan];
     //连接外围设备
@@ -158,11 +172,14 @@
             [self.peripherals addObject:peripheral];
         }
         NSLog(@"开始连接外围设备...");
-        [self writeToLog:@"开始连接外围设备..."];
+        
+       // [self writeToLog:@"开始连接外围设备..."];
         [self.centralManager connectPeripheral:peripheral options:nil];
     }
     }
 }
+ 
+
 //连接到外围设备
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
     NSLog(@"连接外围设备成功!");
@@ -287,9 +304,7 @@
     [recieveData appendData:characteristic.value];
     NSLog(@"%@",recieveData);
     [self writeToLog:[self hexStringFromNSData:recieveData]];
-    
-    
-    
+
 }
 - (NSString *)hexStringFromNSData:(NSData *)data
 {
@@ -308,6 +323,8 @@
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"信号强度:%@",peripheral.RSSI);
     _rssiLabel.text = [NSString stringWithFormat:@"%@",peripheral.RSSI];
+    _distanceLabel.text = [NSString stringWithFormat:@"%.2f米",[self calcDistByRSSI:[peripheral.RSSI intValue]]];
+
 }
 /*!
  *  @method peripheral:didReadRSSI:error:
@@ -321,7 +338,101 @@
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error {
     NSLog(@"信号强度:%@",RSSI);
     _rssiLabel.text = [NSString stringWithFormat:@"%@", RSSI];
+    
+    if (_rssiArr == nil) {
+        _rssiArr  = [NSMutableArray new];
+    }
+    [_rssiArr addObject:RSSI];
+    
+    if (_rssiArr.count ==5) {
+       __block float sum = 0.0;
+        
+        [_rssiArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            sum += [obj floatValue];
+        }];
+        float avg = sum /5;
+        
+        __block float variSum = 0.0;
+        [_rssiArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            float single = [obj floatValue];
+            variSum +=  (single - avg) * (single - avg);
+            
+        }];
+        variSum  = variSum/5;
+        NSLog(@"平均数%.2f,方差%.2f",avg,variSum);
+        [_rssiArr removeAllObjects];
+        
+        // 判断方差
+        if (variSum <MIN_VARI) {
+            float distance =[self calcDistByRSSI:avg];
+            _distanceLabel.text = [NSString stringWithFormat:@"%.2f米",distance];
+            if (distance >2) {
+                [self playSound];
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"关闭声音" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+//                SystemSoundID soundId;
+//                NSString *path = [[NSBundle mainBundle]pathForResource:@"防盗器音效" ofType:@"mp3"];
+//                AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundId);
+//                AudioServicesPlaySystemSound(soundId);
+            }
+
+        }
+        
+    }
 }
+
+
+#pragma mark - 播放，关闭声音
+-(void)playSound{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"a" ofType:@"m4a"];
+    NSLog(@"%@",path);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path ]) {
+        NSLog(@"文件存在");
+    }
+    if (_audioPlayer==nil) {
+        NSError* error = nil;
+        _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
+      
+        _audioPlayer.delegate = self;
+        _audioPlayer.volume = 1;
+        _audioPlayer.numberOfLoops = -1;//设置音乐播放次数 -1为一直循环
+       
+        
+    }
+    if (_audioPlayer && !self.okToPlaySound) //当前前一个audio播放完毕，符合播放的条件
+    {
+        //NSLog(@"播放");
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        
+        UInt32 shouldDuck = 1;
+        AudioSessionSetProperty( kAudioSessionProperty_OtherMixableAudioShouldDuck,
+                                sizeof(UInt32),
+                                &shouldDuck );
+        [session setActive:YES error:nil];
+        _okToPlaySound = YES;
+        [self.audioPlayer prepareToPlay];
+        [self.audioPlayer play];
+    }
+
+
+}
+
+
+// 关闭声音
+-(void)stopPlaySound{
+    if (self.audioPlayer && self.okToPlaySound)
+    {
+        [_audioPlayer stop];
+        _okToPlaySound = NO;
+        _audioPlayer = nil;
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        [session setActive:NO error:nil];
+    }
+    
+}
+
+
 #pragma mark - 属性
 -(NSMutableArray *)peripherals{
     if(!_peripherals){
@@ -345,7 +456,22 @@
     }
     self.log.text=[NSString stringWithFormat:@"%@\r\n%@",self.log.text,info];
 }
+
+#pragma  mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [self stopPlaySound];
+    }
+    else if(buttonIndex ==1){
+        
+    }
+}
 -(void)dealloc{
     NSLog(@"蓝牙界面销毁啦");
+    _audioPlayer = nil;
+    _timer = nil;
 }
+
+
 @end
