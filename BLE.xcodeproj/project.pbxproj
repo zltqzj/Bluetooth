@@ -88,7 +88,7 @@
 		1C7A1E211B1C2588002ED888 /* xinxi_d@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7A1DEA1B1C2588002ED888 /* xinxi_d@2x.png */; };
 		1C7A1E221B1C2588002ED888 /* xinxi_n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7A1DEB1B1C2588002ED888 /* xinxi_n@2x.png */; };
 		1C7A1E231B1C2588002ED888 /* zhuan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7A1DEC1B1C2588002ED888 /* zhuan@2x.png */; };
-		1C7A1E251B1C28CF002ED888 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7A1E241B1C28CF002ED888 /* search.png */; };
+		1C7A1E251B1C28CF002ED888 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7A1E241B1C28CF002ED888 /* search@2x.png */; };
 		1C7A1E281B1C3107002ED888 /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A1E271B1C3107002ED888 /* DeviceListViewController.m */; };
 		1C7A1E2B1B1C4A73002ED888 /* PeripheralsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A1E2A1B1C4A73002ED888 /* PeripheralsViewController.m */; };
 		1C7A1E2E1B1C4A95002ED888 /* PeripheralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A1E2D1B1C4A95002ED888 /* PeripheralCell.m */; };
@@ -249,7 +249,7 @@
 		1C7A1DEA1B1C2588002ED888 /* xinxi_d@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xinxi_d@2x.png"; sourceTree = "<group>"; };
 		1C7A1DEB1B1C2588002ED888 /* xinxi_n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xinxi_n@2x.png"; sourceTree = "<group>"; };
 		1C7A1DEC1B1C2588002ED888 /* zhuan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zhuan@2x.png"; sourceTree = "<group>"; };
-		1C7A1E241B1C28CF002ED888 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
+		1C7A1E241B1C28CF002ED888 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		1C7A1E261B1C3107002ED888 /* DeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceListViewController.h; sourceTree = "<group>"; };
 		1C7A1E271B1C3107002ED888 /* DeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceListViewController.m; sourceTree = "<group>"; };
 		1C7A1E291B1C4A73002ED888 /* PeripheralsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralsViewController.h; sourceTree = "<group>"; };
@@ -431,7 +431,7 @@
 			children = (
 				1C9D8C241B1DAA3200C5E2F8 /* iconfont-switch.png */,
 				1C9D8C251B1DAA3200C5E2F8 /* iconfont-switch@2x.png */,
-				1C7A1E241B1C28CF002ED888 /* search.png */,
+				1C7A1E241B1C28CF002ED888 /* search@2x.png */,
 				1C7A1DB61B1C2588002ED888 /* Alarm_Classic.mp3 */,
 				1C7A1DB71B1C2588002ED888 /* bluetooth.png */,
 				1C7A1DB81B1C2588002ED888 /* bluetooth@2x.png */,
@@ -847,7 +847,7 @@
 				1C7A1E0F1B1C2588002ED888 /* searchpoint_2@2x.png in Resources */,
 				1C7A1DF91B1C2588002ED888 /* info@2x.png in Resources */,
 				1C7A1E1D1B1C2588002ED888 /* step5.png in Resources */,
-				1C7A1E251B1C28CF002ED888 /* search.png in Resources */,
+				1C7A1E251B1C28CF002ED888 /* search@2x.png in Resources */,
 				1C7A1E101B1C2588002ED888 /* searchpoint_3@2x.png in Resources */,
 				1CCF39B91B09E3FA0003943C /* 信号灯音效.mp3 in Resources */,
 				1C7A1DF51B1C2588002ED888 /* icon@57.png in Resources */,

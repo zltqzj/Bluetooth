@@ -31,7 +31,7 @@
 @property (strong,nonatomic) CBCentralManager *centralManager;//中心设备管理器
 @property (strong,nonatomic) NSMutableArray *peripherals;//连接的外围设备
 @property(strong,nonatomic) CSPausibleTimer* timer;  // 定时器
-
+@property(strong,nonatomic) CAShapeLayer* arcLayer;
 
 @property(assign,nonatomic) BOOL IS_CONNECTING;// 正在连接状态
 @property (strong,nonatomic) NSMutableArray *rssiArr;// 信号的数组（10秒，5个）
@@ -47,13 +47,33 @@
 @implementation ViewController
 @synthesize audioPlayer = _audioPlayer;
 
-// 添加脉冲效果
--(void)addPulsingHaloEffect{
-    PulsingHaloLayer *layer = [PulsingHaloLayer layer];
-    self.halo = layer;
-    self.halo.position = self.blueBGImageview.center;
-    [self.view.layer insertSublayer:self.halo below:self.blueBGImageview.layer];
+//定义动画过程,暂时没用
+-(void)drawLineAnimation:(CALayer*)layer
+{
+    CABasicAnimation *bas=[CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    bas.duration=1;
+    bas.delegate=self;
+    bas.fromValue=[NSNumber numberWithInteger:0];
+    bas.toValue=[NSNumber numberWithInteger:1];
+    [layer addAnimation:bas forKey:@"key"];
 }
+
+//定义所需要画的图形
+-(void)addPulsingHaloEffect
+{
+    UIBezierPath *path=[UIBezierPath bezierPath];
+    CGRect rect=[UIScreen mainScreen].applicationFrame;
+    [path addArcWithCenter:CGPointMake(_blueBGImageview.frame.size.width/2,_blueBGImageview.frame.size.height/2+_blueBGImageview.mj_y-50) radius:2 startAngle:0 endAngle:2*M_PI clockwise:NO];
+   _arcLayer=[CAShapeLayer layer];
+    _arcLayer.path=path.CGPath;//46,169,230
+    _arcLayer.fillColor=[UIColor colorWithRed:46.0/255.0 green:169.0/255.0 blue:230.0/255.0 alpha:1].CGColor;
+   // arcLayer.strokeColor=[UIColor colorWithWhite:1 alpha:0.7].CGColor;
+    _arcLayer.lineWidth=3;
+    _arcLayer.frame=self.view.frame;
+    [self.view.layer addSublayer:_arcLayer];
+ 
+}
+
 
 -(IBAction)connectDevice:(id)sender{
     
@@ -69,6 +89,8 @@
         weakSelf.peripheral = cb;
         weakSelf.title = cb.name;
         [weakSelf connect2Device];
+        [weakSelf addPulsingHaloEffect];// 加小蓝点
+
     };
     [self.navigationController pushViewController:device animated:YES];
 }
@@ -93,6 +115,8 @@
              _distanceLabel.text = @"距离";
              _IS_CONNECTING = NO;
              [_closeBtn setHidden:YES];
+             [_arcLayer removeFromSuperlayer];
+
 
          }
      }];
@@ -173,7 +197,7 @@
     self.title = @"首页";
     _centralManager=[[CBCentralManager alloc] initWithDelegate:self queue:nil];
 
-    _blueBGImageview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"floor1"]];
+    _blueBGImageview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search"]];
     _blueBGImageview.frame = CGRectMake(10, 200, SCREEN_WIDTH-20, SCREEN_WIDTH+20);
     [self.view addSubview:_blueBGImageview];
 
@@ -192,9 +216,9 @@
 //    [_centerBGImageview setMj_h:70];
 //    [self.view addSubview:_centerBGImageview];
     [_closeBtn addTarget:self action:@selector(cancelConnect2Device:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    //[self addPulsingHaloEffect];
+//    [_closeBtn setHidden:NO];
+//
+//    [self addPulsingHaloEffect];
 }
 
 -(void)login
@@ -204,8 +228,6 @@
     
     [self.navigationController pushViewController:login animated:YES];
 }
-
-
 
 
 
