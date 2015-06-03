@@ -13,7 +13,7 @@
 #define kCharacteristicUUID    @"FFF1"
 
 #define MIN_VARI 25
-#import <AVFoundation/AVFoundation.h>
+
 @interface Tab2ViewController ()  <CBCentralManagerDelegate,CBPeripheralDelegate,UIAlertViewDelegate,AVAudioPlayerDelegate>
 @property (strong,nonatomic) CBCentralManager *centralManager;//中心设备管理器
 @property (strong,nonatomic) NSMutableArray *peripherals;//连接的外围设备

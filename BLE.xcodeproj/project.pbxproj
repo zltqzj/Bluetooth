@@ -90,11 +90,17 @@
 		1C7A1E231B1C2588002ED888 /* zhuan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7A1DEC1B1C2588002ED888 /* zhuan@2x.png */; };
 		1C7A1E251B1C28CF002ED888 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7A1E241B1C28CF002ED888 /* search.png */; };
 		1C7A1E281B1C3107002ED888 /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A1E271B1C3107002ED888 /* DeviceListViewController.m */; };
+		1C7A1E2B1B1C4A73002ED888 /* PeripheralsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A1E2A1B1C4A73002ED888 /* PeripheralsViewController.m */; };
+		1C7A1E2E1B1C4A95002ED888 /* PeripheralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A1E2D1B1C4A95002ED888 /* PeripheralCell.m */; };
+		1C7A1E311B1C4ABA002ED888 /* PeripheralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A1E301B1C4ABA002ED888 /* PeripheralViewController.m */; };
+		1C7A1E341B1C4B26002ED888 /* CharacteristicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A1E331B1C4B26002ED888 /* CharacteristicCell.m */; };
 		1C80EF791B0074A300D53552 /* iconfont-man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C80EF771B0074A300D53552 /* iconfont-man@2x.png */; };
 		1C80EF7A1B0074A300D53552 /* iconfont-man@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C80EF781B0074A300D53552 /* iconfont-man@3x.png */; };
 		1C80EF7D1B007D0D00D53552 /* FriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C80EF7C1B007D0D00D53552 /* FriendListViewController.m */; };
 		1C97B9BC1B05CDE8003BCF5C /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C97B9B91B05CDE8003BCF5C /* ProgressHUD.bundle */; };
 		1C97B9BD1B05CDE8003BCF5C /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C97B9BB1B05CDE8003BCF5C /* ProgressHUD.m */; };
+		1C9D8C261B1DAA3200C5E2F8 /* iconfont-switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C9D8C241B1DAA3200C5E2F8 /* iconfont-switch.png */; };
+		1C9D8C271B1DAA3200C5E2F8 /* iconfont-switch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C9D8C251B1DAA3200C5E2F8 /* iconfont-switch@2x.png */; };
 		1CB1EF3D1B01EBA7002DA496 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF3C1B01EBA7002DA496 /* LoginViewController.m */; };
 		1CB1EF401B01EBEC002DA496 /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF3F1B01EBEC002DA496 /* RegistViewController.m */; };
 		1CB1EF431B01EEBE002DA496 /* login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB1EF411B01EEBE002DA496 /* login@2x.png */; };
@@ -121,6 +127,8 @@
 		1CBA6F381AF775760051BACB /* CSqlite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBA6F331AF775760051BACB /* CSqlite.m */; };
 		1CBA6F391AF775760051BACB /* gps.db in Resources */ = {isa = PBXBuildFile; fileRef = 1CBA6F341AF775760051BACB /* gps.db */; };
 		1CBA6F3A1AF775760051BACB /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 1CBA6F351AF775760051BACB /* sqlite3.c */; };
+		1CBBAAED1B1E998600045968 /* MultiplePulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBBAAEA1B1E998600045968 /* MultiplePulsingHaloLayer.m */; };
+		1CBBAAEE1B1E998600045968 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CBBAAEC1B1E998600045968 /* PulsingHaloLayer.m */; };
 		1CC0F6941AFC583000D25722 /* SinoNetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0F6931AFC583000D25722 /* SinoNetUtils.m */; };
 		1CCF39B91B09E3FA0003943C /* 信号灯音效.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1CCF39B51B09E3FA0003943C /* 信号灯音效.mp3 */; };
 		1CCF39BA1B09E3FA0003943C /* 电子警报音效.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1CCF39B61B09E3FA0003943C /* 电子警报音效.mp3 */; };
@@ -244,6 +252,14 @@
 		1C7A1E241B1C28CF002ED888 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		1C7A1E261B1C3107002ED888 /* DeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceListViewController.h; sourceTree = "<group>"; };
 		1C7A1E271B1C3107002ED888 /* DeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceListViewController.m; sourceTree = "<group>"; };
+		1C7A1E291B1C4A73002ED888 /* PeripheralsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralsViewController.h; sourceTree = "<group>"; };
+		1C7A1E2A1B1C4A73002ED888 /* PeripheralsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralsViewController.m; sourceTree = "<group>"; };
+		1C7A1E2C1B1C4A95002ED888 /* PeripheralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralCell.h; sourceTree = "<group>"; };
+		1C7A1E2D1B1C4A95002ED888 /* PeripheralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralCell.m; sourceTree = "<group>"; };
+		1C7A1E2F1B1C4ABA002ED888 /* PeripheralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralViewController.h; sourceTree = "<group>"; };
+		1C7A1E301B1C4ABA002ED888 /* PeripheralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralViewController.m; sourceTree = "<group>"; };
+		1C7A1E321B1C4B26002ED888 /* CharacteristicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacteristicCell.h; sourceTree = "<group>"; };
+		1C7A1E331B1C4B26002ED888 /* CharacteristicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacteristicCell.m; sourceTree = "<group>"; };
 		1C80EF771B0074A300D53552 /* iconfont-man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-man@2x.png"; sourceTree = "<group>"; };
 		1C80EF781B0074A300D53552 /* iconfont-man@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-man@3x.png"; sourceTree = "<group>"; };
 		1C80EF7B1B007D0D00D53552 /* FriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListViewController.h; sourceTree = "<group>"; };
@@ -251,6 +267,8 @@
 		1C97B9B91B05CDE8003BCF5C /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		1C97B9BA1B05CDE8003BCF5C /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		1C97B9BB1B05CDE8003BCF5C /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		1C9D8C241B1DAA3200C5E2F8 /* iconfont-switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-switch.png"; sourceTree = "<group>"; };
+		1C9D8C251B1DAA3200C5E2F8 /* iconfont-switch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-switch@2x.png"; sourceTree = "<group>"; };
 		1CB1EF3B1B01EBA7002DA496 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1CB1EF3C1B01EBA7002DA496 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1CB1EF3E1B01EBEC002DA496 /* RegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistViewController.h; sourceTree = "<group>"; };
@@ -295,6 +313,10 @@
 		1CBA6F351AF775760051BACB /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
 		1CBA6F361AF775760051BACB /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		1CBA6F371AF775760051BACB /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
+		1CBBAAE91B1E998600045968 /* MultiplePulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiplePulsingHaloLayer.h; sourceTree = "<group>"; };
+		1CBBAAEA1B1E998600045968 /* MultiplePulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiplePulsingHaloLayer.m; sourceTree = "<group>"; };
+		1CBBAAEB1B1E998600045968 /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
+		1CBBAAEC1B1E998600045968 /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
 		1CC0F6921AFC583000D25722 /* SinoNetUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SinoNetUtils.h; path = NetUitls/SinoNetUtils.h; sourceTree = "<group>"; };
 		1CC0F6931AFC583000D25722 /* SinoNetUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SinoNetUtils.m; path = NetUitls/SinoNetUtils.m; sourceTree = "<group>"; };
 		1CCF39B51B09E3FA0003943C /* 信号灯音效.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "信号灯音效.mp3"; sourceTree = "<group>"; };
@@ -350,12 +372,16 @@
 		1C535E2E1AF85D84003FD0A0 /* TabViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1C7A1E2F1B1C4ABA002ED888 /* PeripheralViewController.h */,
+				1C7A1E301B1C4ABA002ED888 /* PeripheralViewController.m */,
 				1C535E2F1AF85D9E003FD0A0 /* Tab1ViewController.h */,
 				1C535E301AF85D9E003FD0A0 /* Tab1ViewController.m */,
 				1C535E321AF85DBB003FD0A0 /* Tab2ViewController.h */,
 				1C535E331AF85DBB003FD0A0 /* Tab2ViewController.m */,
 				1C7A1E261B1C3107002ED888 /* DeviceListViewController.h */,
 				1C7A1E271B1C3107002ED888 /* DeviceListViewController.m */,
+				1C7A1E291B1C4A73002ED888 /* PeripheralsViewController.h */,
+				1C7A1E2A1B1C4A73002ED888 /* PeripheralsViewController.m */,
 			);
 			path = TabViewController;
 			sourceTree = "<group>";
@@ -363,6 +389,10 @@
 		1C535E351AF85FCF003FD0A0 /* CustomCell */ = {
 			isa = PBXGroup;
 			children = (
+				1C7A1E321B1C4B26002ED888 /* CharacteristicCell.h */,
+				1C7A1E331B1C4B26002ED888 /* CharacteristicCell.m */,
+				1C7A1E2C1B1C4A95002ED888 /* PeripheralCell.h */,
+				1C7A1E2D1B1C4A95002ED888 /* PeripheralCell.m */,
 				1C535E361AF86024003FD0A0 /* Tab1Cell.h */,
 				1C535E371AF86024003FD0A0 /* Tab1Cell.m */,
 				1C535E381AF86024003FD0A0 /* Tab1Cell.xib */,
@@ -399,6 +429,8 @@
 		1C535EBF1AF8A2D2003FD0A0 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				1C9D8C241B1DAA3200C5E2F8 /* iconfont-switch.png */,
+				1C9D8C251B1DAA3200C5E2F8 /* iconfont-switch@2x.png */,
 				1C7A1E241B1C28CF002ED888 /* search.png */,
 				1C7A1DB61B1C2588002ED888 /* Alarm_Classic.mp3 */,
 				1C7A1DB71B1C2588002ED888 /* bluetooth.png */,
@@ -584,6 +616,7 @@
 		1CBA6F021AF7616D0051BACB /* ThirdKit */ = {
 			isa = PBXGroup;
 			children = (
+				1CBBAAE81B1E998600045968 /* PulsingHalo */,
 				1C97B9B81B05CDE8003BCF5C /* ProgressHUD */,
 				1CC0F6911AFC581600D25722 /* NetUtils */,
 				1C267B0C1AF8B8A800D940FC /* NSFileManager */,
@@ -650,6 +683,17 @@
 				1CBA6F371AF775760051BACB /* sqlite3ext.h */,
 			);
 			path = Sqlite;
+			sourceTree = "<group>";
+		};
+		1CBBAAE81B1E998600045968 /* PulsingHalo */ = {
+			isa = PBXGroup;
+			children = (
+				1CBBAAE91B1E998600045968 /* MultiplePulsingHaloLayer.h */,
+				1CBBAAEA1B1E998600045968 /* MultiplePulsingHaloLayer.m */,
+				1CBBAAEB1B1E998600045968 /* PulsingHaloLayer.h */,
+				1CBBAAEC1B1E998600045968 /* PulsingHaloLayer.m */,
+			);
+			path = PulsingHalo;
 			sourceTree = "<group>";
 		};
 		1CC0F6911AFC581600D25722 /* NetUtils */ = {
@@ -788,6 +832,7 @@
 				1CBA6EE81AF761210051BACB /* Main.storyboard in Resources */,
 				1CBA6EED1AF761210051BACB /* LaunchScreen.xib in Resources */,
 				1C80EF7A1B0074A300D53552 /* iconfont-man@3x.png in Resources */,
+				1C9D8C271B1DAA3200C5E2F8 /* iconfont-switch@2x.png in Resources */,
 				1C7A1DEF1B1C2588002ED888 /* bluetooth@2x.png in Resources */,
 				1CBA6F391AF775760051BACB /* gps.db in Resources */,
 				1C7A1DF41B1C2588002ED888 /* home_n@2x.png in Resources */,
@@ -863,6 +908,7 @@
 				1C7A1DF61B1C2588002ED888 /* icon@77.png in Resources */,
 				1C7A1DF31B1C2588002ED888 /* home_d@2x.png in Resources */,
 				1C7A1E1B1B1C2588002ED888 /* step3.png in Resources */,
+				1C9D8C261B1DAA3200C5E2F8 /* iconfont-switch.png in Resources */,
 				1C7A1E151B1C2588002ED888 /* step_en3.png in Resources */,
 				1CB7A9361B008ADB00995A4F /* signal_gray.png in Resources */,
 				1C7A1E0B1B1C2588002ED888 /* right_n@2x.png in Resources */,
@@ -917,16 +963,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CBBAAEE1B1E998600045968 /* PulsingHaloLayer.m in Sources */,
 				1C80EF7D1B007D0D00D53552 /* FriendListViewController.m in Sources */,
+				1C7A1E2B1B1C4A73002ED888 /* PeripheralsViewController.m in Sources */,
 				1CBA6F301AF7750F0051BACB /* KANullInputSource.m in Sources */,
 				1CC0F6941AFC583000D25722 /* SinoNetUtils.m in Sources */,
 				1C43415E1AFDBE5900C1AC3B /* CBPeripheral+Blocks.m in Sources */,
 				1C43415B1AFDBE5900C1AC3B /* CBCentralManager+Blocks.m in Sources */,
+				1C7A1E341B1C4B26002ED888 /* CharacteristicCell.m in Sources */,
 				1CB7A94F1B00AAF800995A4F /* BaseViewController.m in Sources */,
 				1C97B9BD1B05CDE8003BCF5C /* ProgressHUD.m in Sources */,
 				1C53E5B41AF9B43300116E4C /* KilometerAnno.m in Sources */,
 				1C535E391AF86024003FD0A0 /* Tab1Cell.m in Sources */,
 				1C53E5B51AF9B43300116E4C /* KilometerAnotationView.m in Sources */,
+				1CBBAAED1B1E998600045968 /* MultiplePulsingHaloLayer.m in Sources */,
 				1CBA6F3A1AF775760051BACB /* sqlite3.c in Sources */,
 				1CBA6F381AF775760051BACB /* CSqlite.m in Sources */,
 				1C535E2C1AF85B94003FD0A0 /* CSPausibleTimer.m in Sources */,
@@ -947,10 +997,12 @@
 				1CBA6F291AF766EE0051BACB /* CLLocationManager+Block.m in Sources */,
 				1C535E4C1AF87519003FD0A0 /* MapPoint.m in Sources */,
 				1C43415F1AFDBE5900C1AC3B /* CBPeripheral+Debug.m in Sources */,
+				1C7A1E2E1B1C4A95002ED888 /* PeripheralCell.m in Sources */,
 				1C6586A11B02FC49000B09FB /* NetUtils.m in Sources */,
 				1C43415C1AFDBE5900C1AC3B /* CBCentralManager+Debug.m in Sources */,
 				1C7A1E281B1C3107002ED888 /* DeviceListViewController.m in Sources */,
 				1C267B0F1AF8B8A800D940FC /* FileManager.m in Sources */,
+				1C7A1E311B1C4ABA002ED888 /* PeripheralViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

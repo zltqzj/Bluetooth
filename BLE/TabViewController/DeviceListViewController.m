@@ -9,12 +9,22 @@
 #import "DeviceListViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "Tab2ViewController.h"
+#import "CBCentralManager+Blocks.h"
+#import "CBPeripheral+Debug.h"
+#import "PeripheralCell.h"
 @interface DeviceListViewController ()<CBCentralManagerDelegate,CBPeripheralDelegate>
 @property (strong,nonatomic) CBCentralManager *centralManager;//中心设备管理器
-@property (strong,nonatomic) NSMutableArray *peripherals;//连接的外围设备
+@property (nonatomic, strong) NSMutableArray *peripherals;
+@property (nonatomic, strong) NSMutableArray *RSSIs;
+@property (nonatomic, getter = isScanning) BOOL scanning;
 @end
 
 @implementation DeviceListViewController
+
+
+-(void)dealloc{
+    NSLog(@"设备列表销毁");
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,9 +33,46 @@
     _listTable.delegate = self;
     _listTable.dataSource = self;
     [_listTable registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    _peripherals = [self peripherals];
+   
+    
+    self.peripherals = [NSMutableArray new];
+    self.RSSIs = [NSMutableArray new];
+    __weak typeof(self) weakSelf = self;
+    [self.listTable registerClass:[UITableViewCell class] forCellReuseIdentifier:@"PeripheralCell"];
+    
+//    if (!self.isScanning) {
+//        [self.peripherals removeAllObjects];
+//        [self.RSSIs removeAllObjects];
+//        [self.listTable reloadData];
+//        [[CBCentralManager defaultManager] scanForPeripheralsWithServices:nil options:nil didDiscover:^(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
+//            [weakSelf addPeripheral:peripheral RSSI:RSSI];
+//            [weakSelf.listTable reloadData];
+//
+//        }];
+//        weakSelf.scanning = YES;
+//
+//    }
+//    else {
+//        [[CBCentralManager defaultManager] stopScanAndRemoveHandler];
+//       
+//        weakSelf.scanning = NO;
+//    }
+
+    
+    
     // Do any additional setup after loading the view.
 }
+
+- (void)addPeripheral:(CBPeripheral *)peripheral RSSI:(NSNumber *)RSSI
+{
+    if (![self.peripherals containsObject:peripheral]) {
+       
+        [self.peripherals addObject:peripheral];
+        [self.RSSIs addObject:RSSI];
+       
+    }
+}
+
 
 -(NSMutableArray *)peripherals{
     if(!_peripherals){
@@ -102,7 +149,7 @@
             state = @"已连接";
 
         }
-        cell.textLabel.text =[NSString stringWithFormat:@"%@,%@",cbp.name,state]; //cbp.name;
+        cell.textLabel.text =[NSString stringWithFormat:@"%@",cbp.name]; //cbp.name;
       //  cell.detailTextLabel.text = valueToString(cbp.state);
     }
     return cell;
@@ -111,11 +158,13 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    Tab2ViewController* tab2 = viewOnSb(@"Tab2ViewController");
-  
-    tab2.peripheral = _peripherals[indexPath.row] ;
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController pushViewController:tab2 animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
+    NSDictionary* dict = @{@"object": _peripherals[indexPath.row]};
+    _giveDeviceNameBlock(dict);
+//    Tab2ViewController* tab2 = viewOnSb(@"Tab2ViewController");
+//    tab2.peripheral = _peripherals[indexPath.row] ;
+//    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+//    [self.navigationController pushViewController:tab2 animated:YES];
 }
 
 
