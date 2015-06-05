@@ -27,7 +27,7 @@
 #define MIN_VARI 25
 
 @interface ViewController ()
-<CBCentralManagerDelegate,CBPeripheralDelegate>
+<CBCentralManagerDelegate,CBPeripheralDelegate,UIAlertViewDelegate,AVAudioPlayerDelegate>
 @property (strong,nonatomic) CBCentralManager *centralManager;//中心设备管理器
 @property (strong,nonatomic) NSMutableArray *peripherals;//连接的外围设备
 @property(strong,nonatomic) CSPausibleTimer* timer;  // 定时器
@@ -37,6 +37,7 @@
 @property (strong,nonatomic) NSMutableArray *rssiArr;// 信号的数组（10秒，5个）
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;// 播放音频的对象
 @property (atomic, assign) BOOL okToPlaySound;// 是否可以播放的一个标志位
+@property (atomic, assign) BOOL isAlerting;// alert已经弹出
 
 // 脉冲
 @property (nonatomic, weak) MultiplePulsingHaloLayer *mutiHalo;
@@ -142,6 +143,8 @@
 
 // 定时器的方法
 -(void)readBLRSSI{
+    NSLog(@"定时器");
+
     if (_peripheral !=nil) {
         [_peripheral readRSSI];
     }
@@ -194,6 +197,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
     self.title = @"首页";
     _centralManager=[[CBCentralManager alloc] initWithDelegate:self queue:nil];
 
@@ -274,7 +278,7 @@
     int rssi = [RSSI intValue];
     if (rssi < -90) {
         [self writeToLog:@"连接失败，请重新连接"];
-        [self cancelConnect2Device:nil];
+       // [self cancelConnect2Device:nil];
         return;
     }
     else{
@@ -303,7 +307,10 @@
             NSLog(@"开始连接外围设备...");
             
             // [self writeToLog:@"开始连接外围设备..."];
-           // [self.centralManager connectPeripheral:peripheral options:nil];
+            if (_peripheral) {
+                 [self.centralManager connectPeripheral:peripheral options:nil];
+
+            }
         }
     }
 }
@@ -469,6 +476,13 @@
     NSLog(@"信号强度:%@",RSSI);
     _rssiLabel.text = [NSString stringWithFormat:@"%@", RSSI];
     
+    if ([RSSI intValue] < -80 && !_isAlerting) {
+        [self playSound];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"关闭声音" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        _isAlerting = YES;
+
+    }
     if (_rssiArr == nil) {
         _rssiArr  = [NSMutableArray new];
     }
@@ -496,15 +510,12 @@
         if (variSum <MIN_VARI) {
             float distance =[self calcDistByRSSI:avg];
             _distanceLabel.text = [NSString stringWithFormat:@"%.2f米",distance];
-            if (distance >2) {
-                [self playSound];
-                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"关闭声音" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [alert show];
-                //                SystemSoundID soundId;
-                //                NSString *path = [[NSBundle mainBundle]pathForResource:@"防盗器音效" ofType:@"mp3"];
-                //                AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundId);
-                //                AudioServicesPlaySystemSound(soundId);
-            }
+//            if (distance >2) {
+//                [self playSound];
+//                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"关闭声音" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                [alert show];
+//                
+//            }
             
         }
         
@@ -514,6 +525,9 @@
 
 #pragma mark - 播放，关闭声音
 -(void)playSound{
+    UILocalNotification *notification = [self  localNotificationWithPushDate:[NSDate dateWithTimeIntervalSinceNow:2]  RepeatInterval:0 title:@"提示" body:@"已远离您的蓝牙设备"];
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"a" ofType:@"m4a"];
     NSLog(@"%@",path);
     if ([[NSFileManager defaultManager] fileExistsAtPath:path ]) {
@@ -546,6 +560,37 @@
     }
     
     
+}
+
+
+/**
+ *  创建本地推送
+ *
+ *  @param pushDate       推送触发时间
+ *  @param repeatInterval 重复间隔
+ *  @param title          显示标题
+ *  @param body           显示内容
+ *
+ *  @return 本地推送
+ */
+- (UILocalNotification *)localNotificationWithPushDate:(NSDate *)pushDate RepeatInterval:(NSCalendarUnit)repeatInterval title:(NSString *)title body:(NSString *)body{
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    if (notification != nil) {//判断系统是否支持本地通知
+        // 设置推送时间
+        notification.fireDate = pushDate;
+        // 设置时区
+        notification.timeZone = [NSTimeZone defaultTimeZone];
+        // 设置重复间隔
+        notification.repeatInterval = repeatInterval;
+        // 推送内容
+        notification.alertBody = body;
+        // 解锁按钮文字
+        notification.alertAction = title;
+        // 显示在icon上的红色圈中的数子
+        notification.applicationIconBadgeNumber += 1;
+    }
+    return notification;
 }
 
 
@@ -585,6 +630,7 @@
     else if(buttonIndex ==1){
         
     }
+    _isAlerting  = NO;
 }
 
 -(void)dealloc{

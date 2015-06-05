@@ -20,8 +20,65 @@
     [[UITabBar appearance] setTintColor:MAIN_COLOR];
     [[UITabBar appearance] setBackgroundColor:TABBAR_COLOR];
     // Override point for customization after application launch.
+    
+   
+#pragma mark - 推送设置   // Register for Push Notitications, if running iOS 8
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        
+        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |  UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
+        
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
+        [application registerUserNotificationSettings:settings];
+        [application registerForRemoteNotifications];
+    } else {
+        // Register for Push Notifications before iOS 8
+        
+        [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |  UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
+    }
+    
+//    UILocalNotification *notification = [self  localNotificationWithPushDate:[NSDate dateWithTimeIntervalSinceNow:2]  RepeatInterval:0 title:@"123" body:@"333"];
+//      [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     return YES;
 }
+
+
+/**
+ *  创建本地推送
+ *
+ *  @param pushDate       推送触发时间
+ *  @param repeatInterval 重复间隔
+ *  @param title          显示标题
+ *  @param body           显示内容
+ *
+ *  @return 本地推送
+ */
+- (UILocalNotification *)localNotificationWithPushDate:(NSDate *)pushDate RepeatInterval:(NSCalendarUnit)repeatInterval title:(NSString *)title body:(NSString *)body{
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    if (notification != nil) {//判断系统是否支持本地通知
+        // 设置推送时间
+        notification.fireDate = pushDate;
+        // 设置时区
+        notification.timeZone = [NSTimeZone defaultTimeZone];
+        // 设置重复间隔
+        notification.repeatInterval = repeatInterval;
+        // 推送内容
+        notification.alertBody = body;
+        // 解锁按钮文字
+        notification.alertAction = title;
+        // 显示在icon上的红色圈中的数子
+        notification.applicationIconBadgeNumber += 1;
+    }
+    return notification;
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification*)notification{
+    
+    
+    if (application.applicationIconBadgeNumber > 0) {
+        application.applicationIconBadgeNumber  = 0;
+    }
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -58,6 +115,9 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    if (application.applicationIconBadgeNumber > 0) {
+        application.applicationIconBadgeNumber  = 0;
+    }
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
